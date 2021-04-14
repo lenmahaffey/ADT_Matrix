@@ -8,14 +8,15 @@
 */
 
 #include <iostream>
-#include "GameBoard.h"
+#include "Matrix.h"
 using namespace std;
 using namespace Battleship;
 
 int main()
 {
-	GameBoard game = GameBoard(10, 10);
-	game.DisplayBoard();
+	Matrix<char> game = Matrix<char>(9, 9);
+	game.Display();
+	//cout << game.GetContents("B4");
 	return 0;
 }
 
