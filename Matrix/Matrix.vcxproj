@@ -21,9 +21,10 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{04c1f5b7-fb5f-4f7c-8610-0cb8604f76f3}</ProjectGuid>
+    <ProjectGuid>{34538D4C-C35F-446A-90C0-24BA29F3A1B1}</ProjectGuid>
     <RootNamespace>Battleship</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Matrix</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -143,7 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\MatrixExceptions.h" />
-    <ClInclude Include="src\GameBoardCell.h" />
+    <ClInclude Include="src\MatrixCell.h" />
     <ClInclude Include="src\Matrix.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -20,13 +20,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GameBoardCell.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\MatrixExceptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MatrixCell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

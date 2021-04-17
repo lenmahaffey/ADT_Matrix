@@ -1,6 +1,6 @@
 #include "CppUnitTest.h"
-#include "../Battleship/GameBoard.h"
-#include "../Battleship//GameBoardCell.h"
+#include "../Matrix/Matrix.h"
+#include "../"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Battleship;

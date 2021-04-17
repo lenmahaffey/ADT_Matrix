@@ -2,7 +2,7 @@
 #include <string>
 
 #pragma once
-namespace Battleship
+namespace Matrix
 {
 	class MatrixLengthOutOfBounds : public std::exception
 	{
