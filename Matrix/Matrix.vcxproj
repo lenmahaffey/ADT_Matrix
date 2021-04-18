@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{34538D4C-C35F-446A-90C0-24BA29F3A1B1}</ProjectGuid>
-    <RootNamespace>Battleship</RootNamespace>
+    <RootNamespace>Matrix</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>Matrix</ProjectName>
   </PropertyGroup>
@@ -140,9 +140,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\CellAddress.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\CellAddress.h" />
     <ClInclude Include="src\MatrixExceptions.h" />
     <ClInclude Include="src\MatrixCell.h" />
     <ClInclude Include="src\Matrix.h" />

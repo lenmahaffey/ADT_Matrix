@@ -1,18 +1,15 @@
 #include "CppUnitTest.h"
-#include "../Matrix/Matrix.h"
-#include "../"
+#include "../Matrix/src/matrix.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-using namespace Battleship;
 
-namespace BattleshipTesting
+namespace MatrixTesting
 {
 	TEST_CLASS(Matrix_Test)
 	{
 		TEST_METHOD(ValiateCellName_Test)
 		{
-			Matrix<int>test = Matrix<int>(10, 10);
-			test.validateCellName("A1");
+			//Matrix<int> test = Matrix<int>(10, 10, 0);
 		}
 	};
 }

@@ -9,10 +9,13 @@
 
 #include <iostream>
 #include "Matrix.h"
+#include "CellAddress.h"
 using namespace std;
 
 int main()
 {
+	CellAddress newAddress();
+
 	MatrixCell<char>* test = new MatrixCell<char>[25];
 	Matrix<char> game = Matrix<char>(10, 10, 'E');
 	game.Display();
