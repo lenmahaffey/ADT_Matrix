@@ -6,10 +6,19 @@ CellAddress::CellAddress()
 	address = "";
 }
 
-CellAddress::CellAddress(int r, int c)
+CellAddress::CellAddress(int c, int r)
 {
+	if (c > 700 || c < 0)
+	{
+		throw Exceptions::HeightOutOfBounds();
+	}
+	if (r > 700 || c < 0)
+	{
+		throw Exceptions::LengthOutOfBounds();
+	}
 	row = r;
 	column = c;
+	address = GetAddress();
 }
 
 CellAddress::CellAddress(CellAddress& other)
@@ -37,36 +46,62 @@ std::string CellAddress::GetAddress()
 	else
 	{
 		std::string a = "";
-		a += std::to_string(row);
-		a += std::to_string(column);
+		a += calculateAddressStringForInt(column);
+		a += std::to_string(row + 1);
 		return a;
 	}
 }
 
 void CellAddress::SetRow(int newRow)
 {
-	if (newRow >= 0)
+	if (newRow >= 0 && newRow < 701)
 	{
 		row = newRow;
+	}
+	else
+	{
+		throw Exceptions::LengthOutOfBounds();
 	}
 }
 
 void CellAddress::SetColumn(int newColumn)
 {
-	if (newColumn >= 0)
+	if (newColumn >= 0 && newColumn < 701)
 	{
 		column = newColumn;
 	}
+	else
+	{
+		throw Exceptions::HeightOutOfBounds();
+	}
 }
 
-int CellAddress::calculateAddressValue(std::string value)
+int CellAddress::calculateIntForAddressString(std::string value)
 {
-	return -1;
+	int total = 0;
+	total += (value[value.length() - 1]) - 65;
+	if (value.length() >= 2)
+	{
+		int subTotal = (value[0] + 1) - 65;
+		subTotal *= 26;
+		for (int i = 1; i < value.length() - 1; i++)
+		{
+			int temp = 1;
+			temp = (value[i] + 1) - 65;
+			temp *= 26;
+			temp *= subTotal;
+			subTotal += temp;
+		}
+		total += subTotal;
+	}
+	return total;
 }
 
-std::string CellAddress::calculateAddressValue(int value)
+std::string CellAddress::calculateAddressStringForInt(int value)
 {
 	std::string s = "";
+	int calcValue = value / 26;
+
 	//value += 65; //A=65 in ANSI and we want to start at the beginning of the alphabet
 	if (value <= 25 && value >= 0)
 	{
@@ -88,6 +123,11 @@ std::string CellAddress::calculateAddressValue(int value)
 	}
 	else
 	{
+		while (value < 25)
+		{
+			value -= 25;
+			s.push_back('A');
+		}
 		char f = ((value / 26) - 1) + 65;
 		char s = ((value % 26)) + 65;
 		std::string str;

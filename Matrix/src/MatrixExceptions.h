@@ -2,44 +2,66 @@
 #include <string>
 
 #pragma once
-namespace Matrix
+namespace Exceptions
 {
-	class MatrixLengthOutOfBounds : public std::exception
+	class MatrixException : std::exception
 	{
 	public:
-		MatrixLengthOutOfBounds()
+		MatrixException()
 		{
-			message = "The length is out of bounds";
+			message = "Undefined Matrix Exception";
 		}
-		MatrixLengthOutOfBounds(std::string s)
+
+		MatrixException(std::string s)
 		{
 			message = s;
 		}
+
 		std::string what()
 		{
 			return message;
 		}
-	private:
+	protected:
 		std::string message;
 	};
 
-	class MatrixHeightOutOfBounds : public std::exception
+	class LengthOutOfBounds : public MatrixException
 	{
 	public:
-		MatrixHeightOutOfBounds()
+		LengthOutOfBounds()
 		{
-			message = "The length is out of bounds";
+			message = "The maximum length is 700";
 		}
-		MatrixHeightOutOfBounds(std::string s)
+		LengthOutOfBounds(std::string s)
 		{
 			message = s;
 		}
-		std::string what()
+	};
+
+	class HeightOutOfBounds : public MatrixException
+	{
+	public:
+		HeightOutOfBounds()
 		{
-			return message;
+			message = "The maximum height is 700";
 		}
-	private:
-		std::string message;
+		HeightOutOfBounds(std::string s)
+		{
+			message = s;
+		}
+	};
+
+	class BadAddressString : public MatrixException
+	{
+	public:
+		BadAddressString()
+		{
+			message = "The address string entered is invalid";
+		}
+		BadAddressString(std::string s)
+		{
+			message = s;
+		}
 	};
 }
 

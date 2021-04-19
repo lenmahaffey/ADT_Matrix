@@ -1,24 +1,24 @@
 #pragma once
 #include <string>
+#include "MatrixExceptions.h"
 
 class CellAddress
 {
 public:
 	CellAddress();
-	CellAddress(int row, int column);
+	CellAddress(int column, int row);
 	CellAddress(CellAddress& other);
 	int GetRow();
 	int GetColumn();
 	std::string GetAddress();
 	void SetRow(int newRow);
 	void SetColumn(int newColumn);
-	int calculateAddressValue(std::string address);
-	std::string calculateAddressValue(int value);
+	static int calculateIntForAddressString(std::string address);
+	static std::string calculateAddressStringForInt(int value);
 
 private:
 	int row;
 	int column;
 	std::string address;
-
 };
 

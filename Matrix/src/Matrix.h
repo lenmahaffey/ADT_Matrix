@@ -6,41 +6,55 @@
 template <class T>
 class Matrix
 {
+public:
+	Matrix<T>(int height, int lenght, T defaultValue);
+	void Display();
+	int GetLength();
+	int GetHeight();
+	MatrixCell<T> GetCell(std::string cell) const;
+	MatrixCell<T> GetCell(int column, int row) const;
+	void SetCell(std::string& cell, MatrixCell<T> T);
+	void SetCell(int col, int row, MatrixCell<T> T);
+	void SetCellContents(std::string& cell, T& contents);
+	void SetCellContents(int col, int row, T& contents);
+	~Matrix();
+
 private:
 	const int length;
 	const int height;
 	MatrixCell<T>** arr;
-
-public:
-	Matrix<T>(int length, int height, T defaultValue);
-	void Display();
-	MatrixCell<T> GetCell(std::string cell) const;
-	void SetCell(std::string& cell, MatrixCell<T> T);
-	void SetCell(int row, int col, MatrixCell<T> T);
-	void SetCellContents(std::string& cell, T& contents);
-	void SetCellContents(int row, int col, T& contents);
-	~Matrix();
 };
 
 template <class T>
-Matrix<T>::Matrix(int rowLength, int columnheight, T defaultValue) :
+Matrix<T>::Matrix(int columnheight, int rowLength, T defaultValue) :
 	height(columnheight), length(rowLength)
 {
-	arr = new MatrixCell<T>*[height];
-	for (int row = 0; row <= columnheight - 1; row++)
+	if (columnheight > 700)
 	{
-		arr[row] = new MatrixCell<T>[rowLength];
-		for (int column = 0; column <= rowLength - 1; column++)
+		throw Exceptions::HeightOutOfBounds();
+	}
+	if (rowLength > 700)
+	{
+		throw Exceptions::LengthOutOfBounds();
+	}
+
+	arr = new MatrixCell<T>*[height];
+	for (int column = 0; column <= columnheight - 1; column++)
+	{
+		arr[column] = new MatrixCell<T>[rowLength];
+		for (int row = 0; row <= rowLength - 1; row++)
 		{
 			MatrixCell<T> current;
+			CellAddress currentAddress(column, row);
 			current.SetContents(defaultValue);
+			current.SetAddress(currentAddress);
 			std::string n;
 			char col = column + 65;
 			std::string r = std::to_string(row + 1);
 			n += col;
 			n += r;
 			current.SetName(n);
-			arr[row][column] = current;
+			arr[column][row] = current;
 		}
 	}
 }
@@ -68,11 +82,57 @@ void Matrix<T>::Display()
 		std::cout << std::string((6 * (length + 1)), '-') << std::endl;
 	}
 }
+template <class T>
+int Matrix<T>::GetLength()
+{
+	return length;
+}
+
+template <class T>
+int Matrix<T>::GetHeight()
+{
+	return height;
+}
+
+template <class T>
+MatrixCell<T> Matrix<T>::GetCell(int column, int row) const
+{
+	return arr[column][row];
+}
 
 template <class T>
 MatrixCell<T> Matrix<T>::GetCell(std::string cell) const
 {
-	return arr[0][0];
+	std::string letters = "";
+	std::string numbers = "";
+	for (int i = 0; i < cell.length(); i++)
+	{
+		if (cell[i] >= 65 && cell[i] <= 90)
+		{
+			letters += cell[i];
+		}
+		else if (cell[i] >= 48 && cell[i] <= 57)
+		{
+			numbers += cell[i];
+		}
+		else
+		{
+			throw Exceptions::BadAddressString();
+		}
+	}
+	int c = CellAddress::calculateIntForAddressString(letters);
+	int r = stoi(numbers);
+
+	if (c > height)
+	{
+		throw Exceptions::BadAddressString("The address is out of range for this matrix");
+	}
+	if (r > length)
+	{
+		throw Exceptions::BadAddressString("The address is out of range for this matrix");
+	}
+	r -= 1;
+	return arr[c][r];
 }
 
 template <class T>
@@ -82,7 +142,7 @@ void Matrix<T>::SetCell(std::string& cell, MatrixCell<T> c)
 }
 
 template <class T>
-void Matrix<T>::SetCell(int row, int col, MatrixCell<T> T)
+void Matrix<T>::SetCell(int col, int row, MatrixCell<T> T)
 {
 
 }
@@ -94,7 +154,7 @@ void Matrix<T>::SetCellContents(std::string& cell, T& contents)
 }
 
 template <class T>
-void Matrix<T>::SetCellContents(int row, int col, T& contents)
+void Matrix<T>::SetCellContents(int col, int row, T& contents)
 {
 
 }
