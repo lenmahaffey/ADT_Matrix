@@ -1,3 +1,6 @@
+#ifndef EXCEPTIONS_H
+#define EXCEPTIONS_H
+
 #include <exception>
 #include <string>
 
@@ -21,6 +24,7 @@ namespace Exceptions
 		{
 			return message;
 		}
+
 	protected:
 		std::string message;
 	};
@@ -65,4 +69,4 @@ namespace Exceptions
 	};
 }
 
-
+#endif // !EXCEPTIONS_H

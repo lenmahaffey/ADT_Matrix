@@ -18,7 +18,7 @@ namespace MatrixTesting
 
 			int actualRow = test.GetRow();
 			int actualColumn = test.GetColumn();
-			string actualAddress = test.GetAddress();
+			string actualAddress = test.GetAddressString();
 
 			Assert::AreEqual(expectedRow, actualRow);
 			Assert::AreEqual(expectedColumn, actualColumn);
@@ -34,7 +34,7 @@ namespace MatrixTesting
 
 			int actualRow = test.GetRow();
 			int actualColumn = test.GetColumn();
-			string actualAddress = test.GetAddress();
+			string actualAddress = test.GetAddressString();
 
 			Assert::AreEqual(expectedRow, actualRow);
 			Assert::AreEqual(expectedColumn, actualColumn);
@@ -60,7 +60,7 @@ namespace MatrixTesting
 
 			int actualRow = test.GetRow();
 			int actualColumn = test.GetColumn();
-			string actualAddress = test.GetAddress();
+			string actualAddress = test.GetAddressString();
 
 			Assert::AreEqual(expectedRow, actualRow);
 			Assert::AreEqual(expectedColumn, actualColumn);
@@ -77,7 +77,7 @@ namespace MatrixTesting
 			test.SetRow(4);
 			int actualRow = test.GetRow();
 			int actualColumn = test.GetColumn();
-			string actualAddress = test.GetAddress();
+			string actualAddress = test.GetAddressString();
 
 			Assert::AreEqual(expectedRow, actualRow);
 			Assert::AreEqual(expectedColumn, actualColumn);
@@ -94,7 +94,7 @@ namespace MatrixTesting
 			test.SetColumn(5);
 			int actualRow = test.GetRow();
 			int actualColumn = test.GetColumn();
-			string actualAddress = test.GetAddress();
+			string actualAddress = test.GetAddressString();
 
 			Assert::AreEqual(expectedRow, actualRow);
 			Assert::AreEqual(expectedColumn, actualColumn);
@@ -108,43 +108,43 @@ namespace MatrixTesting
 			string actual;
 
 			expected = "A";
-			actual = test.calculateAddressStringForInt(0);
+			actual = test.CalculateAddressStringForInt(0);
 			Assert::AreEqual(expected, actual);
 
 			expected = "Q";
-			actual = test.calculateAddressStringForInt(16);
+			actual = test.CalculateAddressStringForInt(16);
 			Assert::AreEqual(expected, actual);
 
 			expected = "Z";
-			actual = test.calculateAddressStringForInt(25);
+			actual = test.CalculateAddressStringForInt(25);
 			Assert::AreEqual(expected, actual);
 
 			expected = "AA";
-			actual = test.calculateAddressStringForInt(26);
+			actual = test.CalculateAddressStringForInt(26);
 			Assert::AreEqual(expected, actual);
 
 			expected = "AB";
-			actual = test.calculateAddressStringForInt(27);
+			actual = test.CalculateAddressStringForInt(27);
 			Assert::AreEqual(expected, actual);
 
 			expected = "AZ";
-			actual = test.calculateAddressStringForInt(51);
+			actual = test.CalculateAddressStringForInt(51);
 			Assert::AreEqual(expected, actual);
 
 			expected = "BA";
-			actual = test.calculateAddressStringForInt(52);
+			actual = test.CalculateAddressStringForInt(52);
 			Assert::AreEqual(expected, actual);
 
 			expected = "FA";
-			actual = test.calculateAddressStringForInt(156);
+			actual = test.CalculateAddressStringForInt(156);
 			Assert::AreEqual(expected, actual);
 
 			expected = "ZA";
-			actual = test.calculateAddressStringForInt(676);
+			actual = test.CalculateAddressStringForInt(676);
 			Assert::AreEqual(expected, actual);
 
 			expected = "ZZ";
-			actual = test.calculateAddressStringForInt(701);
+			actual = test.CalculateAddressStringForInt(701);
 			Assert::AreEqual(expected, actual);
 		}
 
@@ -155,39 +155,39 @@ namespace MatrixTesting
 			int actual;
 
 			expected = 0;
-			actual = test.calculateIntForAddressString("A");
+			actual = test.CalculateIntForAddressString("A");
 			Assert::AreEqual(expected, actual);
 
 			expected = 7;
-			actual = test.calculateIntForAddressString("H");
+			actual = test.CalculateIntForAddressString("H");
 			Assert::AreEqual(expected, actual);
 
 			expected = 22;
-			actual = test.calculateIntForAddressString("W");
+			actual = test.CalculateIntForAddressString("W");
 			Assert::AreEqual(expected, actual);
 
 			expected = 25;
-			actual = test.calculateIntForAddressString("Z");
+			actual = test.CalculateIntForAddressString("Z");
 			Assert::AreEqual(expected, actual);
 
 			expected = 26;
-			actual = test.calculateIntForAddressString("AA");
+			actual = test.CalculateIntForAddressString("AA");
 			Assert::AreEqual(expected, actual);
 
 			expected = 51;
-			actual = test.calculateIntForAddressString("AZ");
+			actual = test.CalculateIntForAddressString("AZ");
 			Assert::AreEqual(expected, actual);
 
 			expected = 52;
-			actual = test.calculateIntForAddressString("BA");
+			actual = test.CalculateIntForAddressString("BA");
 			Assert::AreEqual(expected, actual);
 
 			expected = 103;
-			actual = test.calculateIntForAddressString("CZ");
+			actual = test.CalculateIntForAddressString("CZ");
 			Assert::AreEqual(expected, actual);
 
 			expected = 701;
-			actual = test.calculateIntForAddressString("ZZ");
+			actual = test.CalculateIntForAddressString("ZZ");
 			Assert::AreEqual(expected, actual);
 		}
 	};

@@ -6,6 +6,26 @@ CellAddress::CellAddress()
 	address = "";
 }
 
+CellAddress::CellAddress(std::string a)
+{
+	if (a.length() > 0 && a.length() < 3)
+	{
+		int c, r;
+
+		std::string temp;
+		temp.push_back(a[0]);
+		c = CalculateIntForAddressString(temp);
+
+		r = a[1] - '0';
+		column = c;
+		row = r - 1;
+	}
+	else
+	{
+		throw Exceptions::BadAddressString();
+	}
+}
+
 CellAddress::CellAddress(int c, int r)
 {
 	if (c > 700 || c < 0)
@@ -18,7 +38,7 @@ CellAddress::CellAddress(int c, int r)
 	}
 	row = r;
 	column = c;
-	address = GetAddress();
+	address = GetAddressString();
 }
 
 CellAddress::CellAddress(CellAddress& other)
@@ -32,12 +52,13 @@ int CellAddress::GetRow()
 {
 	return row;
 }
+
 int CellAddress::GetColumn()
 {
 	return column;
 }
 
-std::string CellAddress::GetAddress()
+std::string CellAddress::GetAddressString()
 {
 	if (row == -1 || column == -1)
 	{
@@ -46,7 +67,7 @@ std::string CellAddress::GetAddress()
 	else
 	{
 		std::string a = "";
-		a += calculateAddressStringForInt(column);
+		a += CalculateAddressStringForInt(column);
 		a += std::to_string(row + 1);
 		return a;
 	}
@@ -76,7 +97,7 @@ void CellAddress::SetColumn(int newColumn)
 	}
 }
 
-int CellAddress::calculateIntForAddressString(std::string value)
+int CellAddress::CalculateIntForAddressString(std::string value)
 {
 	int total = 0;
 	total += (value[value.length() - 1]) - 65;
@@ -84,7 +105,7 @@ int CellAddress::calculateIntForAddressString(std::string value)
 	{
 		int subTotal = (value[0] + 1) - 65;
 		subTotal *= 26;
-		for (int i = 1; i < value.length() - 1; i++)
+		for (int i = 1; i < (int)value.length() - 1; i++)
 		{
 			int temp = 1;
 			temp = (value[i] + 1) - 65;
@@ -97,7 +118,7 @@ int CellAddress::calculateIntForAddressString(std::string value)
 	return total;
 }
 
-std::string CellAddress::calculateAddressStringForInt(int value)
+std::string CellAddress::CalculateAddressStringForInt(int value)
 {
 	std::string s = "";
 	int calcValue = value / 26;
@@ -135,4 +156,45 @@ std::string CellAddress::calculateAddressStringForInt(int value)
 		str.push_back(s);
 		return str;
 	}
+}
+
+CellAddress CellAddress::operator =(const CellAddress& otherAddress)
+{
+	if (this != &otherAddress)
+	{
+		this->row = otherAddress.row;
+		this->column = otherAddress.column;
+	}
+	return *this;
+}
+
+CellAddress CellAddress::operator =(const std::string& a)
+{
+	if (a.length() > 0 && a.length() < 3)
+	{
+		int c, r;
+
+		std::string temp;
+		temp.push_back(a[0]);
+		c = CalculateIntForAddressString(temp);
+
+		r = a[1] - '0';
+		column = c;
+		row = r - 1;
+	}
+	else
+	{
+		throw Exceptions::BadAddressString();
+	}
+	return *this;
+}
+
+bool CellAddress::operator ==(const CellAddress& a) const
+{
+	return (this->row == a.row && this->column == a.column);
+}
+
+bool CellAddress::operator !=(const CellAddress& a) const
+{
+	return (this->row != a.row || this->column != a.column);
 }

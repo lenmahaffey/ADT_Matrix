@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MATRIXCELL_H
+#define MATRIXCELL_H
+
 #include <string>
 #include <iostream>
 #include "CellAddress.h"
@@ -81,3 +83,4 @@ std::ostream& operator<<(std::ostream& os, const MatrixCell<T>& a)
 	os << a.contents;
 	return os;
 }
+#endif //MATRIXCELL_H
