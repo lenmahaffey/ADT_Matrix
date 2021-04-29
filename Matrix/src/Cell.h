@@ -1,5 +1,5 @@
-#ifndef MATRIXCELL_H
-#define MATRIXCELL_H
+#ifndef CELL_H
+#define CELL_H
 
 #include <string>
 #include <iostream>
@@ -16,6 +16,7 @@ public:
 	T GetContents();
 	std::string GetName();
 	CellAddress GetAddress();
+	bool IsEmpty() const;
 	void SetAddress(CellAddress newAddress);
 	void SetName(std::string& newName);
 	void SetContents(T& newContents);
@@ -30,11 +31,8 @@ private:
 
 template <class T>
 Cell<T>::Cell() :
-	contents{},
-	name{""},
-	address{}
+	contents{},	name{""}, address{}
 {
-
 }
 
 template <class T>
@@ -83,4 +81,4 @@ std::ostream& operator<<(std::ostream& os, const Cell<T>& a)
 	os << a.contents;
 	return os;
 }
-#endif //MATRIXCELL_H
+#endif //CELL_H

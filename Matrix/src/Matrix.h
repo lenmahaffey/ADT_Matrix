@@ -15,6 +15,8 @@ public:
 	int GetHeight();
 	Cell<T> GetCell(std::string cell) const;
 	Cell<T> GetCell(int column, int row) const;
+	T GetCellContents(std::string cell) const;
+	T GetCellContents(int column, int row) const;
 	void SetCell(std::string& cell, Cell<T> T);
 	void SetCell(int col, int row, Cell<T> T);
 	void SetCellContents(std::string& cell, T contents);
@@ -57,18 +59,16 @@ template <class T>
 Matrix<T>::Matrix(int columnheight, int rowLength, T defaultValue) :
 	height(columnheight), length(rowLength)
 {
-	if (columnheight > 700)
+	if (columnheight <= 0 || columnheight > 700)
 	{
 		throw Exceptions::HeightOutOfBounds();
 	}
-	if (rowLength > 700)
+
+	if (rowLength <= 0 || rowLength > 700)
 	{
 		throw Exceptions::LengthOutOfBounds();
 	}
-	if (rowLength == 0 || columnheight == 0)
-	{
-		throw Exceptions::MatrixException("Length and height must be greater than zero");
-	}
+
 	arr = new Cell<T>*[height];
 	for (int column = 0; column <= columnheight - 1; column++)
 	{
@@ -154,7 +154,7 @@ Cell<T> Matrix<T>::GetCell(std::string cell) const
 {
 	std::string letters = "";
 	std::string numbers = "";
-	for (int i = 0; i < cell.length(); i++)
+	for (int i = 0; i < (int)cell.length(); i++)
 	{
 		if (cell[i] >= 65 && cell[i] <= 90)
 		{
@@ -182,6 +182,17 @@ Cell<T> Matrix<T>::GetCell(std::string cell) const
 	}
 	r -= 1;
 	return arr[c][r];
+}
+
+template <class T>
+T Matrix<T>::GetCellContents(std::string cell) const
+{
+
+}
+template <class T>
+T Matrix<T>::GetCellContents(int column, int row) const
+{
+
 }
 
 template <class T>

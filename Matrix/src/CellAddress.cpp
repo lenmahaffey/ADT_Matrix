@@ -16,9 +16,18 @@ CellAddress::CellAddress(std::string a)
 		temp.push_back(a[0]);
 		c = CalculateIntForAddressString(temp);
 
-		r = a[1] - '0';
+		r = (a[1] - '0') - 1;
+		if (c > 701 || c < 0)
+		{
+			throw Exceptions::HeightOutOfBounds();
+		}
+		if (r > 701 || r < 0)
+		{
+			throw Exceptions::LengthOutOfBounds();
+		}
+
 		column = c;
-		row = r - 1;
+		row = r;
 	}
 	else
 	{
@@ -28,11 +37,11 @@ CellAddress::CellAddress(std::string a)
 
 CellAddress::CellAddress(int c, int r)
 {
-	if (c > 700 || c < 0)
+	if (c > 701 || c < 0)
 	{
 		throw Exceptions::HeightOutOfBounds();
 	}
-	if (r > 700 || c < 0)
+	if (r > 701 || r < 0)
 	{
 		throw Exceptions::LengthOutOfBounds();
 	}

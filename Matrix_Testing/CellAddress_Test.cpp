@@ -9,96 +9,334 @@ namespace MatrixTesting
 {
 	TEST_CLASS(CellAddress_Test)
 	{
-		TEST_METHOD(Constructor_Test)
+		TEST_METHOD(Constructor_HasNegativeRow)
 		{
+			//arrange
 			CellAddress test;
-			int expectedRow = -1;
-			int expectedColumn = -1;
-			string expectedAddress = "";
+			int expected = -1;
 
-			int actualRow = test.GetRow();
-			int actualColumn = test.GetColumn();
-			string actualAddress = test.GetAddressString();
+			//act
+			int actual = test.GetRow();
 
-			Assert::AreEqual(expectedRow, actualRow);
-			Assert::AreEqual(expectedColumn, actualColumn);
-			Assert::AreEqual(expectedAddress, actualAddress);
+			//assert
+			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(ConstructorWithValues_Test)
+		TEST_METHOD(Constructor_HasNegativeColumn)
 		{
-			CellAddress test(0,0);
-			int expectedRow = 0;
-			int expectedColumn = 0;
-			string expectedAddress = "A1";
 
-			int actualRow = test.GetRow();
-			int actualColumn = test.GetColumn();
-			string actualAddress = test.GetAddressString();
+			//arrange
+			CellAddress test;
+			int expected = -1;
 
-			Assert::AreEqual(expectedRow, actualRow);
-			Assert::AreEqual(expectedColumn, actualColumn);
-			Assert::AreEqual(expectedAddress, actualAddress);
+			//act
+			int actual = test.GetColumn();
+
+			//act
+			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(ConstructorExceptions_Test)
+		TEST_METHOD(Constructor_HasNoAddress)
 		{
-			auto func1 = [] {CellAddress test = CellAddress(701, 0); };
+			//arrange
+			CellAddress test;
+			string expected = "";
+
+			//act
+			string actual = test.GetAddressString();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(ConstructorWithAddressString_HasCorrectRow)
+		{
+			//arrange
+			CellAddress test{"A1"};
+			int expected = 0;
+
+			//act
+			int actual = test.GetRow();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(ConstructorWithAddressString_HasCorrectColumn)
+		{
+
+			//arrange
+			CellAddress test{ "A1" };
+			int expected = 0;
+
+			//act
+			int actual = test.GetColumn();
+
+			//act
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(ConstructorWithAddressString_HasAddress)
+		{
+			//arrange
+			CellAddress test{ "A1" };
+			string expected = "A1";
+
+			//act
+			string actual = test.GetAddressString();
+
+			//assert
+			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
+		}
+
+		TEST_METHOD(ConstructorWithAddressString_HasCorrectAddress)
+		{
+			//arrange
+			CellAddress test{ "A1" };
+			string expected = "A1";
+
+			//act
+			string actual = test.GetAddressString();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(ConstructorWithInts_HasCorrectRow)
+		{
+			//arrange
+			CellAddress test{ 0, 0 };
+			int expected = 0;
+
+			//act
+			int actual = test.GetRow();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(ConstructorWithInts_HasCorrectColumn)
+		{
+			//arrange
+			CellAddress test{ 0, 0 };
+			int expected = 0;
+
+			//act
+			int actual = test.GetColumn();
+
+			//act
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(ConstructorWithInts_HasAddress)
+		{
+			//arrange
+			CellAddress test{ 0, 0 };
+			string expected = "A1";
+
+			//act
+			string actual = test.GetAddressString();
+
+			//assert
+			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
+		}
+
+		TEST_METHOD(ConstructorWithInts_HasCorrectAddress)
+		{
+			//arrange
+			CellAddress test{ 0, 0 };
+			string expected = "A1";
+
+			//act
+			string actual = test.GetAddressString();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(CopyConstructor_HasCorrectRow)
+		{
+			//arrange
+			CellAddress cell{ "B2" };
+			int expected = 1;
+
+			//act
+			CellAddress testCell = cell;
+			int actual = testCell.GetRow();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(CopyConstructor_HasCorrectColumn)
+		{
+
+			//arrange
+			CellAddress cell{ "D5" };
+			int expected = 3;
+
+			//act
+			CellAddress testCell = cell;
+			int actual = testCell.GetColumn();
+
+			//act
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(CopyConstructor_HasAddress)
+		{
+			//arrange
+			CellAddress cell{ "B5" };
+			string expected = "B5";
+
+			//act
+			CellAddress testCell = cell;
+			string actual = testCell.GetAddressString();
+
+			//assert
+			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
+		}
+
+		TEST_METHOD(CopyConstructor_HasCorrectAddress)
+		{
+			//arrange
+			CellAddress cell1{ "B2" };
+			string expected = "B2";
+
+			//act
+			CellAddress testCell = cell1;
+			string actual = testCell.GetAddressString();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(ConstructorWithIntsException_ExpectHeightException)
+		{
+			//arrange
+			auto func1 = [] {CellAddress test{ 702, 0 }; };
+			auto func2 = [] {CellAddress test{ -1, 0 }; };
+
+			//act
 			Assert::ExpectException<Exceptions::HeightOutOfBounds>(func1);
+			Assert::ExpectException<Exceptions::HeightOutOfBounds>(func2);
+		}
 
-			auto func2 = [] {CellAddress test = CellAddress(0, 701); };
+		TEST_METHOD(ConstructorWithIntsException_ExpectLengthException)
+		{
+			//arrange
+			auto func1 = [] {CellAddress test{ 0, 702 }; };
+			auto func2 = [] {CellAddress test{ 0, -1 }; };
+
+			//act
+			Assert::ExpectException<Exceptions::LengthOutOfBounds>(func1);
 			Assert::ExpectException<Exceptions::LengthOutOfBounds>(func2);
 		}
 
-		TEST_METHOD(CopyConstructor_Test)
+		TEST_METHOD(GetRow_ReturnsAnInt)
 		{
-			CellAddress first(1, 5);
-			CellAddress test = first;
-			int expectedColumn = 1;
-			int expectedRow = 5;
-			string expectedAddress = "B6";
+			//Arrange
+			CellAddress testCell{ "B4" };
+			int expected(3);
 
-			int actualRow = test.GetRow();
-			int actualColumn = test.GetColumn();
-			string actualAddress = test.GetAddressString();
+			//Act
+			int actual = testCell.GetRow();
 
-			Assert::AreEqual(expectedRow, actualRow);
-			Assert::AreEqual(expectedColumn, actualColumn);
-			Assert::AreEqual(expectedAddress, actualAddress);
+			//Assert
+			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
 		}
 
-		TEST_METHOD(SetRow_Test)
+		TEST_METHOD(GetRow_ReturnsCorrectInt)
 		{
+			//Arrange
+			CellAddress testCell{ "C7" };
+			int expected(6);
+
+			//Act
+			int actual = testCell.GetRow();
+
+			//Assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(GetColumn_ReturnsAnInt)
+		{
+			//Arrange
+			CellAddress testCell{ "C1" };
+			int expected(2);
+
+			//Act
+			int actual = testCell.GetColumn();
+
+			//Assert
+			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
+		}
+
+		TEST_METHOD(GetColumn_ReturnsCorrectInt)
+		{
+			//Arrange
+			CellAddress testCell{ "B1" };
+			int expected(1);
+
+			//Act
+			int actual = testCell.GetColumn();
+
+			//Assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(GetAddressString_ReturnsAString)
+		{
+			//Arrange
+			CellAddress testCell{ "B1" };
+			string expected("B1");
+
+			//Act
+			string actual = testCell.GetAddressString();
+
+			//Assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(GetAddressString_ReturnsCorrectString)
+		{
+			//Arrange
+			CellAddress testCell{ "B1" };
+			string expected("B1");
+
+			//Act
+			string actual = testCell.GetAddressString();
+
+			//Assert
+			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
+		}
+
+		TEST_METHOD(SetRow_SetRowCorrectly)
+		{
+			//Arrange
 			CellAddress test;
 			int expectedRow = 4;
-			int expectedColumn = -1;
-			string expectedAddress = "";
 
+			//Act
 			test.SetRow(4);
 			int actualRow = test.GetRow();
-			int actualColumn = test.GetColumn();
-			string actualAddress = test.GetAddressString();
 
+			//Arrange
 			Assert::AreEqual(expectedRow, actualRow);
-			Assert::AreEqual(expectedColumn, actualColumn);
-			Assert::AreEqual(expectedAddress, actualAddress);
 		}
 
-		TEST_METHOD(SetColumn_Test)
+		TEST_METHOD(SetColumn_SetsColumnCorrectly)
 		{
+			//Arrange
 			CellAddress test;
-			int expectedRow = -1;
-			int expectedColumn = 5;
-			string expectedAddress = "";
+			int expected = 5;
 
+			//Act
 			test.SetColumn(5);
-			int actualRow = test.GetRow();
-			int actualColumn = test.GetColumn();
-			string actualAddress = test.GetAddressString();
+			int actual = test.GetColumn();
 
-			Assert::AreEqual(expectedRow, actualRow);
-			Assert::AreEqual(expectedColumn, actualColumn);
-			Assert::AreEqual(expectedAddress, actualAddress);
+			//Assert
+			Assert::AreEqual(expected, actual);
 		}
 
 		TEST_METHOD(CalculateAddressValueFromInt_Test)

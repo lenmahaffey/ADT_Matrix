@@ -158,6 +158,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CellAddress_Test.cpp" />
+    <ClCompile Include="Cell_Test.cpp" />
     <ClCompile Include="Matrix_Test.cpp" />
   </ItemGroup>
   <ItemGroup>
