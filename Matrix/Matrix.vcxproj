@@ -146,7 +146,7 @@
   <ItemGroup>
     <ClInclude Include="src\CellAddress.h" />
     <ClInclude Include="src\MatrixExceptions.h" />
-    <ClInclude Include="src\MatrixCell.h" />
+    <ClInclude Include="src\Cell.h" />
     <ClInclude Include="src\Matrix.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

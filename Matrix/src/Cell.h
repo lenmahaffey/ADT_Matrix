@@ -6,20 +6,20 @@
 #include "CellAddress.h"
 
 template <class T>
-class MatrixCell
+class Cell
 {
 	template <class T>
-	friend std::ostream& operator<<(std::ostream& os, const MatrixCell<T>& a);
+	friend std::ostream& operator<<(std::ostream& os, const Cell<T>& a);
 
 public:
-	MatrixCell();
+	Cell();
 	T GetContents();
 	std::string GetName();
 	CellAddress GetAddress();
 	void SetAddress(CellAddress newAddress);
 	void SetName(std::string& newName);
 	void SetContents(T& newContents);
-	~MatrixCell();
+	~Cell();
 
 private:
 	T contents;
@@ -29,7 +29,7 @@ private:
 };
 
 template <class T>
-MatrixCell<T>::MatrixCell() :
+Cell<T>::Cell() :
 	contents{},
 	name{""},
 	address{}
@@ -38,47 +38,47 @@ MatrixCell<T>::MatrixCell() :
 }
 
 template <class T>
-T MatrixCell<T>::GetContents()
+T Cell<T>::GetContents()
 {
 	return contents;
 }
 
 template <class T>
-std::string MatrixCell<T>::GetName()
+std::string Cell<T>::GetName()
 {
 	return name;
 }
 template <class T>
-CellAddress MatrixCell<T>::GetAddress()
+CellAddress Cell<T>::GetAddress()
 {
 	return address;
 }
 
 template <class T>
-void MatrixCell<T>::SetAddress(CellAddress newAddress)
+void Cell<T>::SetAddress(CellAddress newAddress)
 {
 	address = newAddress;
 }
 
 template <class T>
-void MatrixCell<T>::SetName(std::string& newName)
+void Cell<T>::SetName(std::string& newName)
 {
 	name = newName;
 }
 
 template <class T>
-void MatrixCell<T>::SetContents(T& newContent)
+void Cell<T>::SetContents(T& newContent)
 {
 	contents = newContent;
 }
 
 template <class T>
-MatrixCell<T>::~MatrixCell()
+Cell<T>::~Cell()
 {
 
 }
 template<class T>
-std::ostream& operator<<(std::ostream& os, const MatrixCell<T>& a)
+std::ostream& operator<<(std::ostream& os, const Cell<T>& a)
 {
 	os << a.contents;
 	return os;

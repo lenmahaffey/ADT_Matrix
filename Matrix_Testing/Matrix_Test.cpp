@@ -7,19 +7,28 @@ namespace MatrixTesting
 {
 	TEST_CLASS(Matrix_Test)
 	{
-		TEST_METHOD(Constructor_Test)
+		TEST_METHOD(Constructor_HasLength)
 		{
 			int expected, actual;
 
-			Matrix<int> test = Matrix<int>(10, 10, 0);
+			Matrix<int> test = Matrix<int>(1, 10, 0);
 			expected = 10;
 
 			actual = test.GetLength();
 			Assert::AreEqual(expected, actual);
+		}
 
-			actual = test.GetLength();
+		TEST_METHOD(Constructor_HasHeight)
+		{
+			int expected, actual;
+
+			Matrix<int> test = Matrix<int>(10, 1, 0);
+			expected = 10;
+
+			actual = test.GetHeight();
 			Assert::AreEqual(expected, actual);
 		}
+
 
 		TEST_METHOD(ConstructorExceptions_Test)
 		{

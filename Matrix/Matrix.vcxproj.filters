@@ -29,10 +29,10 @@
     <ClInclude Include="src\MatrixExceptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\MatrixCell.h">
+    <ClInclude Include="src\CellAddress.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\CellAddress.h">
+    <ClInclude Include="src\Cell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
