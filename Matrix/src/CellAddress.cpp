@@ -50,24 +50,24 @@ CellAddress::CellAddress(int c, int r)
 	address = GetAddressString();
 }
 
-CellAddress::CellAddress(CellAddress& other)
+CellAddress::CellAddress(const CellAddress& other)
 {
 	row = other.row;
 	column = other.column;
 	address = other.address;
 }
 
-int CellAddress::GetRow()
+int CellAddress::GetRow() const
 {
 	return row;
 }
 
-int CellAddress::GetColumn()
+int CellAddress::GetColumn() const
 {
 	return column;
 }
 
-std::string CellAddress::GetAddressString()
+std::string CellAddress::GetAddressString() const
 {
 	if (row == -1 || column == -1)
 	{
@@ -82,7 +82,7 @@ std::string CellAddress::GetAddressString()
 	}
 }
 
-void CellAddress::SetRow(int newRow)
+void CellAddress::SetRow(const int& newRow)
 {
 	if (newRow >= 0 && newRow < 701)
 	{
@@ -94,7 +94,7 @@ void CellAddress::SetRow(int newRow)
 	}
 }
 
-void CellAddress::SetColumn(int newColumn)
+void CellAddress::SetColumn(const int& newColumn)
 {
 	if (newColumn >= 0 && newColumn < 701)
 	{
@@ -106,8 +106,9 @@ void CellAddress::SetColumn(int newColumn)
 	}
 }
 
-int CellAddress::CalculateIntForAddressString(std::string value)
+int CellAddress::CalculateIntForAddressString(const std::string& v)
 {
+	std::string value{ v };
 	int total = 0;
 	total += (value[value.length() - 1]) - 65;
 	if (value.length() >= 2)
@@ -127,8 +128,9 @@ int CellAddress::CalculateIntForAddressString(std::string value)
 	return total;
 }
 
-std::string CellAddress::CalculateAddressStringForInt(int value)
+std::string CellAddress::CalculateAddressStringForInt(const int& v)
 {
+	int value{ v };
 	std::string s = "";
 	int calcValue = value / 26;
 

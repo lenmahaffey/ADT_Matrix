@@ -10,14 +10,14 @@ public:
 	CellAddress();
 	CellAddress(std::string address);
 	CellAddress(int column, int row);
-	CellAddress(CellAddress& other);
-	int GetRow();
-	int GetColumn();
-	std::string GetAddressString();
-	void SetRow(int newRow);
-	void SetColumn(int newColumn);
-	static int CalculateIntForAddressString(std::string address);
-	static std::string CalculateAddressStringForInt(int value);
+	CellAddress(const CellAddress& other);
+	int GetRow() const;
+	int GetColumn() const;
+	std::string GetAddressString() const;
+	void SetRow(const int& newRow);
+	void SetColumn(const int& newColumn);
+	static int CalculateIntForAddressString(const std::string& address);
+	static std::string CalculateAddressStringForInt(const int& value);
 
 	CellAddress operator =(const CellAddress& otherAddress);
 	CellAddress operator =(const std::string& addressString);
