@@ -8,31 +8,69 @@
 template <class T>
 class Cell
 {
+public:
+	Cell();
+	Cell(std::string addressString);
+	Cell(std::string addressString, T contents);
+	bool IsEmpty() const;
+	std::string GetName();
+	CellAddress GetCellAddress();
+	std::string GetCellAddressString();
+	T GetContents();
+	void SetName(const std::string& newName);
+	void SetAddress(const CellAddress& newAddress);
+	void SetAddress(const std::string& newAddress);
+	void SetContents(const T& newContents);
+
 	template <class T>
 	friend std::ostream& operator<<(std::ostream& os, const Cell<T>& a);
 
-public:
-	Cell();
-	T GetContents();
-	std::string GetName();
-	CellAddress GetAddress();
-	bool IsEmpty() const;
-	void SetAddress(CellAddress newAddress);
-	void SetName(std::string& newName);
-	void SetContents(T& newContents);
-	~Cell();
-
 private:
 	T contents;
-	CellAddress address;
+	CellAddress cellAddress;
 	std::string name;
-
+	bool isEmpty;
 };
 
 template <class T>
 Cell<T>::Cell() :
-	contents{},	name{""}, address{}
+	contents{}, name{ "" }, cellAddress{}, isEmpty{ true }
 {
+}
+
+template <class T>
+Cell<T>::Cell(std::string addressString) :
+	contents{}, name{ addressString }, cellAddress{ CellAddress{ addressString } }, isEmpty{ true }
+{
+}
+
+template <class T>
+Cell<T>::Cell(std::string addressString, T contents) :
+	contents{ contents }, name{ addressString }, cellAddress{ CellAddress{ addressString } }, isEmpty{ false }
+{
+}
+
+template <class T>
+bool Cell<T>::IsEmpty() const
+{
+	return isEmpty;
+}
+
+template <class T>
+std::string Cell<T>::GetName()
+{
+	return name;
+}
+template <class T>
+CellAddress Cell<T>::GetCellAddress()
+{
+	return cellAddress;
+}
+
+template <class T>
+std::string Cell<T>::GetCellAddressString()
+{
+	return cellAddress.GetAddressString();
 }
 
 template <class T>
@@ -42,39 +80,30 @@ T Cell<T>::GetContents()
 }
 
 template <class T>
-std::string Cell<T>::GetName()
-{
-	return name;
-}
-template <class T>
-CellAddress Cell<T>::GetAddress()
-{
-	return address;
-}
-
-template <class T>
-void Cell<T>::SetAddress(CellAddress newAddress)
-{
-	address = newAddress;
-}
-
-template <class T>
-void Cell<T>::SetName(std::string& newName)
+void Cell<T>::SetName(const std::string& newName)
 {
 	name = newName;
 }
 
 template <class T>
-void Cell<T>::SetContents(T& newContent)
+void Cell<T>::SetAddress(const CellAddress& newAddress)
+{
+	cellAddress = newAddress;
+}
+
+template <class T>
+void Cell<T>::SetAddress(const std::string& newAddress)
+{
+	cellAddress = newAddress;
+}
+
+
+template <class T>
+void Cell<T>::SetContents(const T& newContent)
 {
 	contents = newContent;
 }
 
-template <class T>
-Cell<T>::~Cell()
-{
-
-}
 template<class T>
 std::ostream& operator<<(std::ostream& os, const Cell<T>& a)
 {
