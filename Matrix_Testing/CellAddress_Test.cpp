@@ -13,7 +13,7 @@ namespace MatrixTesting
 		{
 			//arrange
 			CellAddress test;
-			int expected = -1;
+			int expected{ -1 };
 
 			//act
 			int actual = test.GetRow();
@@ -27,7 +27,7 @@ namespace MatrixTesting
 
 			//arrange
 			CellAddress test;
-			int expected = -1;
+			int expected{ -1 };
 
 			//act
 			int actual = test.GetColumn();
@@ -40,7 +40,7 @@ namespace MatrixTesting
 		{
 			//arrange
 			CellAddress test;
-			string expected = "";
+			string expected{ "" };
 
 			//act
 			string actual = test.GetAddressString();
@@ -53,7 +53,7 @@ namespace MatrixTesting
 		{
 			//arrange
 			CellAddress test{"A1"};
-			int expected = 0;
+			int expected{ 0 };
 
 			//act
 			int actual = test.GetRow();
@@ -67,7 +67,7 @@ namespace MatrixTesting
 
 			//arrange
 			CellAddress test{ "A1" };
-			int expected = 0;
+			int expected{ 0 };
 
 			//act
 			int actual = test.GetColumn();
@@ -80,7 +80,7 @@ namespace MatrixTesting
 		{
 			//arrange
 			CellAddress test{ "A1" };
-			string expected = "A1";
+			string expected{ "A1" };
 
 			//act
 			string actual = test.GetAddressString();
@@ -93,7 +93,7 @@ namespace MatrixTesting
 		{
 			//arrange
 			CellAddress test{ "A1" };
-			string expected = "A1";
+			string expected{ "A1" };
 
 			//act
 			string actual = test.GetAddressString();
@@ -106,7 +106,7 @@ namespace MatrixTesting
 		{
 			//arrange
 			CellAddress test{ 0, 0 };
-			int expected = 0;
+			int expected{ 0 };
 
 			//act
 			int actual = test.GetRow();
@@ -119,7 +119,7 @@ namespace MatrixTesting
 		{
 			//arrange
 			CellAddress test{ 0, 0 };
-			int expected = 0;
+			int expected{ 0 };
 
 			//act
 			int actual = test.GetColumn();
@@ -132,7 +132,7 @@ namespace MatrixTesting
 		{
 			//arrange
 			CellAddress test{ 0, 0 };
-			string expected = "A1";
+			string expected{ "A1" };
 
 			//act
 			string actual = test.GetAddressString();
@@ -145,7 +145,7 @@ namespace MatrixTesting
 		{
 			//arrange
 			CellAddress test{ 0, 0 };
-			string expected = "A1";
+			string expected{ "A1" };
 
 			//act
 			string actual = test.GetAddressString();
@@ -158,7 +158,7 @@ namespace MatrixTesting
 		{
 			//arrange
 			CellAddress cell{ "B2" };
-			int expected = 1;
+			int expected{ 1 };
 
 			//act
 			CellAddress testCell = cell;
@@ -173,7 +173,7 @@ namespace MatrixTesting
 
 			//arrange
 			CellAddress cell{ "D5" };
-			int expected = 3;
+			int expected{ 3 };
 
 			//act
 			CellAddress testCell = cell;
@@ -187,7 +187,7 @@ namespace MatrixTesting
 		{
 			//arrange
 			CellAddress cell{ "B5" };
-			string expected = "B5";
+			string expected{ "B5" };
 
 			//act
 			CellAddress testCell = cell;
@@ -201,7 +201,7 @@ namespace MatrixTesting
 		{
 			//arrange
 			CellAddress cell1{ "B2" };
-			string expected = "B2";
+			string expected{ "B2" };
 
 			//act
 			CellAddress testCell = cell1;
@@ -237,7 +237,7 @@ namespace MatrixTesting
 		{
 			//Arrange
 			CellAddress testCell{ "B4" };
-			int expected(3);
+			int expected{ 3 };
 
 			//Act
 			int actual = testCell.GetRow();
@@ -250,7 +250,7 @@ namespace MatrixTesting
 		{
 			//Arrange
 			CellAddress testCell{ "C7" };
-			int expected(6);
+			int expected{ 6 };
 
 			//Act
 			int actual = testCell.GetRow();
@@ -263,7 +263,7 @@ namespace MatrixTesting
 		{
 			//Arrange
 			CellAddress testCell{ "C1" };
-			int expected(2);
+			int expected{ 2 };
 
 			//Act
 			int actual = testCell.GetColumn();
@@ -276,7 +276,7 @@ namespace MatrixTesting
 		{
 			//Arrange
 			CellAddress testCell{ "B1" };
-			int expected(1);
+			int expected{ 1 };
 
 			//Act
 			int actual = testCell.GetColumn();
@@ -289,7 +289,7 @@ namespace MatrixTesting
 		{
 			//Arrange
 			CellAddress testCell{ "B1" };
-			string expected("B1");
+			string expected{ "B1" };
 
 			//Act
 			string actual = testCell.GetAddressString();
@@ -302,7 +302,7 @@ namespace MatrixTesting
 		{
 			//Arrange
 			CellAddress testCell{ "B1" };
-			string expected("B1");
+			string expected{ "B1" };
 
 			//Act
 			string actual = testCell.GetAddressString();
@@ -315,7 +315,7 @@ namespace MatrixTesting
 		{
 			//Arrange
 			CellAddress test;
-			int expectedRow = 4;
+			int expectedRow{ 4 };
 
 			//Act
 			test.SetRow(4);
@@ -329,7 +329,7 @@ namespace MatrixTesting
 		{
 			//Arrange
 			CellAddress test;
-			int expected = 5;
+			int expected{ 5 };
 
 			//Act
 			test.SetColumn(5);
@@ -339,7 +339,7 @@ namespace MatrixTesting
 			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(CalculateAddressValueFromInt_Test)
+		TEST_METHOD(CalculateAddressValueFromInt_MultipleValues)
 		{
 			CellAddress test;
 			string expected;
@@ -386,7 +386,7 @@ namespace MatrixTesting
 			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(CalculateAddressValueFromString_Test)
+		TEST_METHOD(CalculateAddressValueFromString_MultipleValues)
 		{
 			CellAddress test;
 			int expected;
@@ -426,6 +426,145 @@ namespace MatrixTesting
 
 			expected = 701;
 			actual = test.CalculateIntForAddressString("ZZ");
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(AssignmentOperatorWithCellAddress_HasCorrectRow)
+		{
+			//arrange
+			CellAddress cell{ "B2" };
+			int expected{ 1 };
+
+			//act
+			CellAddress testCell = cell;
+			int actual = testCell.GetRow();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(AssignmentOperatorWithCellAddress_HasCorrectColumn)
+		{
+
+			//arrange
+			CellAddress cell{ "D5" };
+			int expected{ 3 };
+
+			//act
+			CellAddress testCell = cell;
+			int actual = testCell.GetColumn();
+
+			//act
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(AssignmentOperatorWithCellAddress_HasAddress)
+		{
+			//arrange
+			CellAddress cell{ "B5" };
+			string expected{ "B5" };
+
+			//act
+			CellAddress testCell = cell;
+			string actual = testCell.GetAddressString();
+
+			//assert
+			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
+		}
+
+		TEST_METHOD(AssignmentOperatorWithCellAddress_HasCorrectAddress)
+		{
+			//arrange
+			CellAddress cell1{ "B2" };
+			string expected{ "B2" };
+
+			//act
+			CellAddress testCell = cell1;
+			string actual = testCell.GetAddressString();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(AssignmentOperatorWithString_HasCorrectRow)
+		{
+			//arrange
+			int expected{ 1 };
+
+			//act
+			CellAddress testCell = "B2";
+			int actual = testCell.GetRow();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(AssignmentOperatorWithString_HasCorrectColumn)
+		{
+
+			//arrange
+			int expected{ 3 };
+
+			//act
+			CellAddress testCell = "D5";
+			int actual = testCell.GetColumn();
+
+			//act
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(AssignmentOperatorWithString_HasAddress)
+		{
+			//arrange
+			string expected{ "B5" };
+
+			//act
+			CellAddress testCell = "B5";
+			string actual = testCell.GetAddressString();
+
+			//assert
+			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
+		}
+
+		TEST_METHOD(AssignmentOperatorWithString_HasCorrectAddress)
+		{
+			//arrange
+			string expected{ "B2" };
+
+			//act
+			CellAddress testCell = "B2";
+			string actual = testCell.GetAddressString();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(EqulityOperator_IsCorrect)
+		{
+			//arrange
+			CellAddress testCellAddress1{ "A1" };
+			CellAddress testCellAddress2{ "A1" };
+			bool expected = true;
+
+			//act
+			bool actual = testCellAddress1 == testCellAddress2;
+
+			//assert
+			Assert::AreEqual(expected, actual);
+
+		}
+
+		TEST_METHOD(InequlityOperator_IsCorrect)
+		{
+			//arrange
+			CellAddress testCellAddress1{ "A1" };
+			CellAddress testCellAddress2{ "B1" };
+			bool expected = true;
+
+			//act
+			bool actual = testCellAddress1 != testCellAddress2;
+
+			//assert
 			Assert::AreEqual(expected, actual);
 		}
 	};
