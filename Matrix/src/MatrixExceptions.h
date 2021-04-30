@@ -67,6 +67,19 @@ namespace Exceptions
 			message = s;
 		}
 	};
+
+	class CellAddressOutOfRange : public MatrixException
+	{
+	public:
+		CellAddressOutOfRange()
+		{
+			message = "The address entered is out of range";
+		}
+		CellAddressOutOfRange(std::string s)
+		{
+			message = s;
+		}
+	};
 }
 
 #endif // !EXCEPTIONS_H

@@ -111,10 +111,14 @@ int CellAddress::CalculateIntForAddressString(const std::string& v)
 	std::string value{ v };
 	int total = 0;
 	total += (value[value.length() - 1]) - 65;
-	if (value.length() >= 2)
+	if (value.length() <= 2)
 	{
-		int subTotal = (value[0] + 1) - 65;
-		subTotal *= 26;
+		int subTotal{};
+		if (value.length() > 1)
+		{
+			subTotal = (value[0] + 1) - 65;
+			subTotal *= 26;
+		}
 		for (int i = 1; i < (int)value.length() - 1; i++)
 		{
 			int temp = 1;
@@ -125,11 +129,23 @@ int CellAddress::CalculateIntForAddressString(const std::string& v)
 		}
 		total += subTotal;
 	}
+	else
+	{
+		throw Exceptions::CellAddressOutOfRange();
+	}
+	if (total < 0 || total > 701)
+	{
+		throw Exceptions::CellAddressOutOfRange();
+	}
 	return total;
 }
 
 std::string CellAddress::CalculateAddressStringForInt(const int& v)
 {
+	if (v < 0 || v > 701)
+	{
+		throw Exceptions::CellAddressOutOfRange();
+	}
 	int value{ v };
 	std::string s = "";
 	int calcValue = value / 26;

@@ -8,16 +8,16 @@ class CellAddress
 {
 public:
 	CellAddress();
-	CellAddress(std::string address);
-	CellAddress(int column, int row);
+	CellAddress(std::string address); //throws
+	CellAddress(int column, int row); //throws
 	CellAddress(const CellAddress& other);
 	int GetRow() const;
 	int GetColumn() const;
 	std::string GetAddressString() const;
-	void SetRow(const int& newRow);
-	void SetColumn(const int& newColumn);
-	static int CalculateIntForAddressString(const std::string& address);
-	static std::string CalculateAddressStringForInt(const int& value);
+	void SetRow(const int& newRow); //throws
+	void SetColumn(const int& newColumn); //throws
+	static int CalculateIntForAddressString(const std::string& address); //throws
+	static std::string CalculateAddressStringForInt(const int& value); //throws
 
 	CellAddress operator =(const CellAddress& otherAddress);
 	CellAddress operator =(const std::string& addressString);

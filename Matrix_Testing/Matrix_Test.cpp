@@ -32,6 +32,7 @@ namespace MatrixTesting
 			//assert
 			Assert::AreEqual(expected, actual);
 		}
+
 		TEST_METHOD(Constructor_ExpectHeightException)
 		{
 			//arrange

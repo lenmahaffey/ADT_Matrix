@@ -10,13 +10,13 @@ class Cell
 {
 public:
 	Cell();
-	Cell(std::string addressString);
-	Cell(std::string addressString, T contents);
+	Cell(const std::string& addressString);
+	Cell(const std::string& addressString, const T& contents);
 	bool IsEmpty() const;
-	std::string GetName();
-	CellAddress GetCellAddress();
-	std::string GetCellAddressString();
-	T GetContents();
+	std::string GetName() const;
+	CellAddress GetCellAddress() const;
+	std::string GetCellAddressString() const;
+	T GetContents() const;
 	void SetName(const std::string& newName);
 	void SetAddress(const CellAddress& newAddress);
 	void SetAddress(const std::string& newAddress);
@@ -39,13 +39,13 @@ Cell<T>::Cell() :
 }
 
 template <class T>
-Cell<T>::Cell(std::string addressString) :
+Cell<T>::Cell(const std::string& addressString) :
 	contents{}, name{ addressString }, cellAddress{ CellAddress{ addressString } }, isEmpty{ true }
 {
 }
 
 template <class T>
-Cell<T>::Cell(std::string addressString, T contents) :
+Cell<T>::Cell(const std::string& addressString, const T& contents) :
 	contents{ contents }, name{ addressString }, cellAddress{ CellAddress{ addressString } }, isEmpty{ false }
 {
 }
@@ -57,24 +57,24 @@ bool Cell<T>::IsEmpty() const
 }
 
 template <class T>
-std::string Cell<T>::GetName()
+std::string Cell<T>::GetName() const
 {
 	return name;
 }
 template <class T>
-CellAddress Cell<T>::GetCellAddress()
+CellAddress Cell<T>::GetCellAddress() const
 {
 	return cellAddress;
 }
 
 template <class T>
-std::string Cell<T>::GetCellAddressString()
+std::string Cell<T>::GetCellAddressString() const
 {
 	return cellAddress.GetAddressString();
 }
 
 template <class T>
-T Cell<T>::GetContents()
+T Cell<T>::GetContents() const
 {
 	return contents;
 }
