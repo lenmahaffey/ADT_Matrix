@@ -10,7 +10,7 @@ namespace MatrixTesting
 		TEST_METHOD(Constructor_HasLength)
 		{
 			//arrange
-			Matrix<int> testMatrix = Matrix<int>(1, 10, 0);
+			Matrix<int> testMatrix = Matrix<int>{ 1, 10, 0 };
 			int expected = 10;
 
 			//act
@@ -23,7 +23,7 @@ namespace MatrixTesting
 		TEST_METHOD(Constructor_HasHeight)
 		{
 			//arrange
-			Matrix<int> testMatrix = Matrix<int>(10, 1, 0);
+			Matrix<int> testMatrix = Matrix<int>{ 10, 1, 0 };
 			int expected = 10;
 
 			//act
@@ -36,7 +36,7 @@ namespace MatrixTesting
 		TEST_METHOD(Constructor_ExpectHeightException)
 		{
 			//arrange
-			auto func = [] { Matrix<int> testMatrix = Matrix<int>(701, 10, 0); };
+			auto func = [] { Matrix<int> testMatrix = Matrix<int>{ 701, 10, 0 }; };
 
 			//assert
 			Assert::ExpectException<Exceptions::ColumnOutOfBounds>(func);
@@ -45,26 +45,61 @@ namespace MatrixTesting
 		TEST_METHOD(Constructor_ExpectLengthException)
 		{
 			//arrange
-			auto func = [] { Matrix<int> testMatrix = Matrix<int>(1, 701, 0); };
+			auto func = [] { Matrix<int> testMatrix = Matrix<int>{ 1, 701, 0 }; };
 
 			//assert
 			Assert::ExpectException<Exceptions::RowOutOfBounds>(func);
 		}
 
-		TEST_METHOD(Constructor_ExpectMatrixException)
+		TEST_METHOD(CopyConstructor_HasLength)
 		{
 			//arrange
-			auto func = [] { Matrix<int> testMatrix = Matrix<int>(0, 701, 0); };
+			Matrix<int> testMatrix{ Matrix<int>{ 1, 10, 0 } };
+			int expected = 10;
+
+			//act
+			int actual = testMatrix.GetLength();
 
 			//assert
-			Assert::ExpectException<Exceptions::MatrixException>(func);
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(CopyConstructor_HasHeight)
+		{
+			//arrange
+			Matrix<int> testMatrix{ Matrix<int>{ 10, 1, 0 } };
+			int expected = 10;
+
+			//act
+			int actual = testMatrix.GetHeight();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(CopyConstructor_ExpectHeightException)
+		{
+			//arrange
+			auto func = [] { Matrix<int> testMatrix{ Matrix<int>{708, 10, 0} }; };
+
+			//assert
+			Assert::ExpectException<Exceptions::ColumnOutOfBounds>(func);
+		}
+
+		TEST_METHOD(CopyConstructor_ExpectLengthException)
+		{
+			//arrange
+			auto func = [] { Matrix<int> testMatrix = Matrix<int>{ 1, 701, 0 }; };
+
+			//assert
+			Assert::ExpectException<Exceptions::RowOutOfBounds>(func);
 		}
 
 		TEST_METHOD(GetName_ReturnsAString)
 		{
 			//arrange
 			string expected = "A1";
-			Matrix<int> testMatrix = Matrix<int>(10, 10, 0);
+			Matrix<int> testMatrix = Matrix<int>{ 10, 10, 0 };
 
 			//act
 			string actual = testMatrix.GetCell("A1").GetName();
@@ -76,7 +111,7 @@ namespace MatrixTesting
 		TEST_METHOD(GetName_ReturnsCorrectString)
 		{
 			//arrange
-			Matrix<int> testMatrix = Matrix<int>(10, 10, 0);
+			Matrix<int> testMatrix = Matrix<int>{ 10, 10, 0 };
 			string expected = "B10";
 
 			//act
@@ -89,7 +124,7 @@ namespace MatrixTesting
 		TEST_METHOD(GetName_ExpectException)
 		{
 			//Arrange
-			auto func1 = [] { std::string testMatrix = Matrix<int>(10, 10, 0).GetCell("Y1").GetName(); };
+			auto func1 = [] { std::string testMatrix = Matrix<int>{ 10, 10, 0 }.GetCell("Y1").GetName(); };
 
 			//Assert
 			Assert::ExpectException<Exceptions::ColumnOutOfBounds>(func1);
@@ -98,7 +133,7 @@ namespace MatrixTesting
 		TEST_METHOD(GetCellWithInts_ReturnsACell)
 		{
 			//arrange
-			Matrix<int> testMatrix = Matrix<int>(10, 10, 0);
+			Matrix<int> testMatrix = Matrix<int>{ 10, 10, 0 };
 			Cell<int> expected{ 2, 4, 0 };
 
 			//act
@@ -111,7 +146,7 @@ namespace MatrixTesting
 		TEST_METHOD(GetCellWithInts_ReturnsCorrectCell)
 		{
 			//arrange
-			Matrix<int> testMatrix = Matrix<int>(10, 10, 0);
+			Matrix<int> testMatrix = Matrix<int>{ 10, 10, 0 };
 			string expected = "C5";
 
 			//act
@@ -125,7 +160,7 @@ namespace MatrixTesting
 		TEST_METHOD(GetCellWithString_ReturnsACell)
 		{
 			//arrange
-			Matrix<int> testMatrix = Matrix<int>(10, 10, 0);
+			Matrix<int> testMatrix = Matrix<int>{ 10, 10, 0 };
 			Cell<int> expected = Cell<int>();
 
 			//act
@@ -138,7 +173,7 @@ namespace MatrixTesting
 		TEST_METHOD(GetCellWithString_ReturnsCorrectCell)
 		{
 			//arrange
-			Matrix<int> testMatrix = Matrix<int>(10, 10, 0);
+			Matrix<int> testMatrix = Matrix<int>{ 10, 10, 0 };
 			string expected = "A1";
 
 			//act
@@ -151,7 +186,7 @@ namespace MatrixTesting
 		TEST_METHOD(GetCellContentsWithInts_ReturnsACell)
 		{
 			//arrange
-			Matrix<int> testMatrix = Matrix<int>(10, 10, 0);
+			Matrix<int> testMatrix = Matrix<int>{ 10, 10, 0 };
 			int expected{ 0 };
 
 			//act
@@ -164,7 +199,7 @@ namespace MatrixTesting
 		TEST_METHOD(GetCellContentsWithInts_ReturnsCorrectCell)
 		{
 			//arrange
-			Matrix<int> testMatrix = Matrix<int>(10, 10, 0);
+			Matrix<int> testMatrix = Matrix<int>{ 10, 10, 0 };
 			int expected{ 0 };
 
 			//act
@@ -177,7 +212,7 @@ namespace MatrixTesting
 		TEST_METHOD(GetCellContentsWithString_ReturnsACell)
 		{
 			//arrange
-			Matrix<int> testMatrix = Matrix<int>(10, 10, 0);
+			Matrix<int> testMatrix = Matrix<int>{ 10, 10, 0 };
 			int expected{ 0 };
 
 			//act
@@ -190,7 +225,7 @@ namespace MatrixTesting
 		TEST_METHOD(GetCellContentsWithString_ReturnsCorrectCell)
 		{
 			//arrange
-			Matrix<int> testMatrix = Matrix<int>(10, 10, 0);
+			Matrix<int> testMatrix = Matrix<int>{ 10, 10, 0 };
 			int expected{ 0 };
 
 			//act
@@ -203,7 +238,7 @@ namespace MatrixTesting
 		TEST_METHOD(SetCellWithIntAddress_SetsCorrectValue)
 		{
 			//arrange
-			Matrix<int> testMatrix = Matrix<int>(10, 10, 0);
+			Matrix<int> testMatrix = Matrix<int>{ 10, 10, 0 };
 			int expected{ 5 };
 
 			//act
@@ -217,7 +252,7 @@ namespace MatrixTesting
 		TEST_METHOD(SetCellWithAddressString_SetsCorrectValue)
 		{
 			//arrange
-			Matrix<int> testMatrix = Matrix<int>(10, 10, 0);
+			Matrix<int> testMatrix = Matrix<int>{ 10, 10, 0 };
 			int expected{ 5 };
 
 			//act
@@ -231,7 +266,7 @@ namespace MatrixTesting
 		TEST_METHOD(GetCellAddressFromAddressString_ReturnsACellAddress)
 		{
 			//Arrange
-			Matrix<int> testMatrix = Matrix<int>(10, 10, 0);
+			Matrix<int> testMatrix = Matrix<int>{ 10, 10, 0 };
 			string testString{ "C5" };
 			CellAddress expected{ 3, 4 };
 
@@ -245,7 +280,7 @@ namespace MatrixTesting
 		TEST_METHOD(GetCellAddressFromAddressString_ReturnsCorrectAddress)
 		{
 			//Arrange
-			Matrix<int> testMatrix = Matrix<int>(10, 10, 0);
+			Matrix<int> testMatrix = Matrix<int>{ 10, 10, 0 };
 			string testString{ "C5" };
 			CellAddress expected{ 2, 4 };
 

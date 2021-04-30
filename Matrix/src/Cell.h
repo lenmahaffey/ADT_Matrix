@@ -42,8 +42,8 @@ Cell<T>::Cell() :
 }
 
 template <class T>
-Cell<T>::Cell(const int& c, const int& r):
-	contents {}, name{ "" }, cellAddress{c,r}, isEmpty{ true }
+Cell<T>::Cell(const int& c, const int& r) :
+	contents{}, name{ "" }, cellAddress{ c,r }, isEmpty{ true }
 {
 	name = cellAddress.GetAddressString();
 }
@@ -57,7 +57,7 @@ Cell<T>::Cell(const int& c, const int& r, const T& contents) :
 
 template <class T>
 Cell<T>::Cell(const T& contents) :
-	contents {contents}, name{ "" }, cellAddress{}, isEmpty{ false }
+	contents{ contents }, name{ "" }, cellAddress{}, isEmpty{ false }
 {
 }
 
@@ -133,4 +133,6 @@ std::ostream& operator<<(std::ostream& os, const Cell<T>& a)
 	os << a.contents;
 	return os;
 }
+
+
 #endif //CELL_H

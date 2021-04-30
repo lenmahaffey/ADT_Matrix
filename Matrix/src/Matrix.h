@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MATRIX_H
+#define MATRIX_H
+
 #include <string>
 #include <iostream>
 #include "Cell.h"
@@ -13,8 +15,8 @@ public:
 	void Display();
 	int GetLength() const;
 	int GetHeight() const;
-	Cell<T> GetCell(const std::string& cell) const;
-	Cell<T> GetCell(const int& column, const int& row) const;
+	Cell::Cell<T> GetCell(const std::string& cell) const;
+	Cell::Cell<T> GetCell(const int& column, const int& row) const;
 	T GetCellContents(const std::string& cell) const;
 	T GetCellContents(const int& column, const int& row) const;
 	void SetCell(const std::string& cell, const Cell<T>& T);
@@ -282,7 +284,7 @@ CellAddress Matrix<T>::GetCellAddressFromAddressString(const std::string& a)
 	std::string c{};
 	std::string r{};
 
-	for (int i = 0; i < (int)a.length() ; i++)
+	for (int i = 0; i < (int)a.length(); i++)
 	{
 		if (a[i] >= 'A' && a[i] <= 'Z')
 		{
@@ -321,3 +323,5 @@ Matrix<T> Matrix<T>::operator=(const Matrix<T>& other)
 		}
 	}
 }
+
+#endif //MATRIX_H
