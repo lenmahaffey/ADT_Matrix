@@ -11,16 +11,16 @@ public:
 	Matrix<T>(int height, int lenght, T defaultValue);
 	Matrix<T>(const Matrix<T>& other);
 	void Display();
-	int GetLength();
-	int GetHeight();
-	Cell<T> GetCell(std::string cell) const;
-	Cell<T> GetCell(int column, int row) const;
-	T GetCellContents(std::string cell) const;
-	T GetCellContents(int column, int row) const;
-	void SetCell(std::string& cell, Cell<T> T);
-	void SetCell(int col, int row, Cell<T> T);
-	void SetCellContents(std::string& cell, T contents);
-	void SetCellContents(int col, int row, T contents);
+	int GetLength() const;
+	int GetHeight() const;
+	Cell<T> GetCell(const std::string& cell) const;
+	Cell<T> GetCell(const int& column, const int& row) const;
+	T GetCellContents(const std::string& cell) const;
+	T GetCellContents(const int& column, const int& row) const;
+	void SetCell(const std::string& cell, const Cell<T>& T);
+	void SetCell(const int& col, const int& row, const Cell<T>& T);
+	void SetCellContents(const std::string& cell, const T& contents);
+	void SetCellContents(const int& col, const int& row, const T& contents);
 	static CellAddress GetCellAddressFromAddressString(const std::string& a);
 	~Matrix();
 
@@ -134,19 +134,19 @@ void Matrix<T>::Display()
 }
 
 template <class T>
-int Matrix<T>::GetLength()
+int Matrix<T>::GetLength() const
 {
 	return length;
 }
 
 template <class T>
-int Matrix<T>::GetHeight()
+int Matrix<T>::GetHeight() const
 {
 	return height;
 }
 
 template <class T>
-Cell<T> Matrix<T>::GetCell(int c, int r) const
+Cell<T> Matrix<T>::GetCell(const int& c, const int& r) const
 {
 	if (c < 0 || c > height)
 	{
@@ -160,7 +160,7 @@ Cell<T> Matrix<T>::GetCell(int c, int r) const
 }
 
 template <class T>
-Cell<T> Matrix<T>::GetCell(std::string cellAddress) const
+Cell<T> Matrix<T>::GetCell(const std::string& cellAddress) const
 {
 	CellAddress test{ cellAddress };
 	if (test.GetColumn() < 0 || test.GetColumn() > height)
@@ -175,7 +175,7 @@ Cell<T> Matrix<T>::GetCell(std::string cellAddress) const
 }
 
 template <class T>
-T Matrix<T>::GetCellContents(std::string cellAddress) const
+T Matrix<T>::GetCellContents(const std::string& cellAddress) const
 {
 	CellAddress test{ cellAddress };
 	if (test.GetColumn() < 0 || test.GetColumn() > height)
@@ -191,7 +191,7 @@ T Matrix<T>::GetCellContents(std::string cellAddress) const
 }
 
 template <class T>
-T Matrix<T>::GetCellContents(int c, int r) const
+T Matrix<T>::GetCellContents(const int& c, const int& r) const
 {
 	if (c < 0 || c > height)
 	{
@@ -207,35 +207,63 @@ T Matrix<T>::GetCellContents(int c, int r) const
 }
 
 template <class T>
-void Matrix<T>::SetCell(std::string& cellAddress, Cell<T> c)
+void Matrix<T>::SetCell(const std::string& cellAddress, const Cell<T>& newCell)
 {
-
+	CellAddress test{ cellAddress };
+	if (test.GetColumn() < 0 || test.GetColumn() > height)
+	{
+		throw Exceptions::ColumnOutOfBounds();
+	}
+	if (test.GetRow() < 0 || test.GetRow() > length)
+	{
+		throw Exceptions::RowOutOfBounds();
+	}
+	matrix[test.GetColumn()][test.GetRow()] = newCell;
 }
 
 template <class T>
-void Matrix<T>::SetCell(int c, int r, Cell<T> newContents)
+void Matrix<T>::SetCell(const int& c, const int& r, const Cell<T>& newCell)
 {
 	if (c < 0 || c > height)
 	{
-		throw Exceptions::ColumnOutOfBounds;
+		throw Exceptions::ColumnOutOfBounds();
 	}
 	if (r < 0 || r > length)
 	{
-		throw Exceptions::RowOutOfBounds;
+		throw Exceptions::RowOutOfBounds();
 	}
-	matrix[c][r] = newContents;
+	matrix[c][r] = newCell;
 }
 
 template <class T>
-void Matrix<T>::SetCellContents(std::string& cell, T newContents)
+void Matrix<T>::SetCellContents(const std::string& cellAddress, const T& newContents)
 {
-
+	CellAddress test{ cellAddress };
+	if (test.GetColumn() < 0 || test.GetColumn() > height)
+	{
+		throw Exceptions::ColumnOutOfBounds();
+	}
+	if (test.GetRow() < 0 || test.GetRow() > length)
+	{
+		throw Exceptions::RowOutOfBounds();
+	}
+	Cell<T>* current = &matrix[test.GetColumn()][test.GetRow()];
+	current->SetContents(newContents);
 }
 
 template <class T>
-void Matrix<T>::SetCellContents(int col, int row, T contents)
+void Matrix<T>::SetCellContents(const int& c, const int& r, const T& newContents)
 {
-
+	if (c < 0 || c > height)
+	{
+		throw Exceptions::ColumnOutOfBounds();
+	}
+	if (r < 0 || r > length)
+	{
+		throw Exceptions::RowOutOfBounds();
+	}
+	Cell<T>* current = &matrix[c][r];
+	current->SetContents(newContents);
 }
 
 template <class T>
