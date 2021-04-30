@@ -11,6 +11,7 @@
 #include "Matrix.h"
 #include "CellAddress.h"
 using namespace std;
+using namespace ADT;
 
 int main()
 {

@@ -3,6 +3,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
+using namespace ADT;
 namespace MatrixTesting
 {
 	TEST_CLASS(Matrix_Test)
