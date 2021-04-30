@@ -102,15 +102,6 @@ namespace MatrixTesting
 			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(ConstructorWithAddressString_ExpectException)
-		{
-			//arrange
-			auto func = [] {CellAddress test{ "A702" }; };
-
-			//act
-			Assert::ExpectException<Exceptions::BadAddressString>(func);
-		}
-
 		TEST_METHOD(ConstructorWithInts_HasCorrectRow)
 		{
 			//arrange
@@ -161,24 +152,6 @@ namespace MatrixTesting
 
 			//assert
 			Assert::AreEqual(expected, actual);
-		}
-
-		TEST_METHOD(ConstructorWithInts_ExpectLengthException)
-		{
-			//arrange
-			auto func = [] {CellAddress test{ 0, 702 }; };
-
-			//act
-			Assert::ExpectException<Exceptions::LengthOutOfBounds>(func);
-		}
-
-		TEST_METHOD(ConstructorWithInts_HeightExpectException)
-		{
-			//arrange
-			auto func = [] {CellAddress test{ 702, 0 }; };
-
-			//act
-			Assert::ExpectException<Exceptions::HeightOutOfBounds>(func);
 		}
 
 		TEST_METHOD(CopyConstructor_HasCorrectRow)
@@ -236,28 +209,6 @@ namespace MatrixTesting
 
 			//assert
 			Assert::AreEqual(expected, actual);
-		}
-
-		TEST_METHOD(ConstructorWithIntsException_ExpectHeightException)
-		{
-			//arrange
-			auto func1 = [] {CellAddress test{ 702, 0 }; };
-			auto func2 = [] {CellAddress test{ -1, 0 }; };
-
-			//act
-			Assert::ExpectException<Exceptions::HeightOutOfBounds>(func1);
-			Assert::ExpectException<Exceptions::HeightOutOfBounds>(func2);
-		}
-
-		TEST_METHOD(ConstructorWithIntsException_ExpectLengthException)
-		{
-			//arrange
-			auto func1 = [] {CellAddress test{ 0, 702 }; };
-			auto func2 = [] {CellAddress test{ 0, -1 }; };
-
-			//act
-			Assert::ExpectException<Exceptions::LengthOutOfBounds>(func1);
-			Assert::ExpectException<Exceptions::LengthOutOfBounds>(func2);
 		}
 
 		TEST_METHOD(GetRow_ReturnsAnInt)
@@ -352,16 +303,6 @@ namespace MatrixTesting
 			Assert::AreEqual(expectedRow, actualRow);
 		}
 
-		TEST_METHOD(SetRow_ExpectException)
-		{
-			//arrange
-			CellAddress testAddress{};
-			auto func1 = [&testAddress] {testAddress.SetRow(702); };
-
-			//Assert
-			Assert::ExpectException<Exceptions::LengthOutOfBounds>(func1);
-		}
-
 		TEST_METHOD(SetColumn_SetsColumnCorrectly)
 		{
 			//Arrange
@@ -374,16 +315,6 @@ namespace MatrixTesting
 
 			//Assert
 			Assert::AreEqual(expected, actual);
-		}
-
-		TEST_METHOD(SetColumn_ExceptionExpected)
-		{
-			//arrange
-			CellAddress testAddress{};
-			auto func1 = [&testAddress] {testAddress.SetColumn(702); };
-
-			//Assert
-			Assert::ExpectException<Exceptions::HeightOutOfBounds>(func1);
 		}
 
 		TEST_METHOD(CalculateAddressValueFromInt_MultipleValues)
@@ -476,23 +407,23 @@ namespace MatrixTesting
 			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(CalculateAddressValueFromInt_ExpectException)
-		{
-			//Arrange
-			auto func = [] {CellAddress::CalculateAddressStringForInt(702); };
+		//TEST_METHOD(CalculateAddressValueFromInt_ExpectException)
+		//{
+		//	//Arrange
+		//	auto func = [] {CellAddress::CalculateAddressStringForInt(702); };
 
-			//Assert
-			Assert::ExpectException<Exceptions::CellAddressOutOfRange>(func);
-		}
+		//	//Assert
+		//	Assert::ExpectException<Exceptions::CellAddressOutOfRange>(func);
+		//}
 
-		TEST_METHOD(CalculateAddressValueFromString_ExpectException)
-		{
-			//Arrange
-			auto func = [] {CellAddress::CalculateIntForAddressString("AAA"); };
+		//TEST_METHOD(CalculateAddressValueFromString_ExpectException)
+		//{
+		//	//Arrange
+		//	auto func = [] {CellAddress::CalculateIntForAddressString("AAA"); };
 
-			//Assert
-			Assert::ExpectException<Exceptions::CellAddressOutOfRange>(func);
-		}
+		//	//Assert
+		//	Assert::ExpectException<Exceptions::CellAddressOutOfRange>(func);
+		//}
 
 		TEST_METHOD(AssignmentOperatorWithCellAddress_HasCorrectRow)
 		{

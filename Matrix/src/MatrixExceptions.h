@@ -29,27 +29,27 @@ namespace Exceptions
 		std::string message;
 	};
 
-	class LengthOutOfBounds : public MatrixException
+	class ColumnOutOfBounds : public MatrixException
 	{
 	public:
-		LengthOutOfBounds()
+		ColumnOutOfBounds()
 		{
-			message = "The maximum length is 700";
+			message = "The maximum column is 700";
 		}
-		LengthOutOfBounds(std::string s)
+		ColumnOutOfBounds(std::string s)
 		{
 			message = s;
 		}
 	};
 
-	class HeightOutOfBounds : public MatrixException
+	class RowOutOfBounds : public MatrixException
 	{
 	public:
-		HeightOutOfBounds()
+		RowOutOfBounds()
 		{
-			message = "The maximum height is 700";
+			message = "The maximum row is 700";
 		}
-		HeightOutOfBounds(std::string s)
+		RowOutOfBounds(std::string s)
 		{
 			message = s;
 		}

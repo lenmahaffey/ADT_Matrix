@@ -21,6 +21,7 @@ public:
 	void SetCell(int col, int row, Cell<T> T);
 	void SetCellContents(std::string& cell, T contents);
 	void SetCellContents(int col, int row, T contents);
+	static CellAddress GetCellAddressFromAddressString(const std::string& a);
 	~Matrix();
 
 	Matrix<T> operator=(const Matrix<T>& other);
@@ -28,17 +29,17 @@ public:
 private:
 	int length;
 	int height;
-	Cell<T>** arr;
+	Cell<T>** matrix;
 };
 
 template <class T>
 Matrix<T>::Matrix() :
 	height(0), length(0)
 {
-	arr = new Cell<T>*[height];
+	matrix = new Cell<T>*[height];
 	for (int column = 0; column <= height - 1; column++)
 	{
-		arr[column] = new Cell<T>[length];
+		matrix[column] = new Cell<T>[length];
 		for (int row = 0; row <= length - 1; row++)
 		{
 			Cell<T> current;
@@ -51,7 +52,7 @@ Matrix<T>::Matrix() :
 			n += col;
 			n += r;
 			current.SetName(n);
-			arr[column][row] = current;
+			matrix[column][row] = current;
 		}
 	}
 }
@@ -61,18 +62,18 @@ Matrix<T>::Matrix(int columnheight, int rowLength, T defaultValue) :
 {
 	if (columnheight <= 0 || columnheight > 700)
 	{
-		throw Exceptions::HeightOutOfBounds();
+		throw Exceptions::RowOutOfBounds();
 	}
 
 	if (rowLength <= 0 || rowLength > 700)
 	{
-		throw Exceptions::LengthOutOfBounds();
+		throw Exceptions::ColumnOutOfBounds();
 	}
 
-	arr = new Cell<T>*[height];
+	matrix = new Cell<T>*[height];
 	for (int column = 0; column <= columnheight - 1; column++)
 	{
-		arr[column] = new Cell<T>[rowLength];
+		matrix[column] = new Cell<T>[rowLength];
 		for (int row = 0; row <= rowLength - 1; row++)
 		{
 			Cell<T> current;
@@ -85,7 +86,7 @@ Matrix<T>::Matrix(int columnheight, int rowLength, T defaultValue) :
 			n += col;
 			n += r;
 			current.SetName(n);
-			arr[column][row] = current;
+			matrix[column][row] = current;
 		}
 	}
 }
@@ -96,13 +97,13 @@ Matrix<T>::Matrix(const Matrix<T>& other)
 	{
 		int height = other.GetHeight();
 		int lenght = other.GetLength();
-		arr = new Cell<T>*[height];
+		matrix = new Cell<T>*[height];
 		for (int column = 0; column <= height - 1; column++)
 		{
-			arr[column] = new Cell<T>[length];
+			matrix[column] = new Cell<T>[length];
 			for (int row = 0; row <= length - 1; row++)
 			{
-				arr[column][row] = other[column][row];
+				matrix[column][row] = other[column][row];
 			}
 		}
 	}
@@ -125,12 +126,13 @@ void Matrix<T>::Display()
 		std::cout << "  " << row + 1 << "  |";
 		for (int column = 0; column < length; column++)
 		{
-			std::cout << "  " << arr[row][column] << "  |";
+			std::cout << "  " << matrix[row][column] << "  |";
 		}
 		std::cout << std::endl;
 		std::cout << std::string((6 * (length + 1)), '-') << std::endl;
 	}
 }
+
 template <class T>
 int Matrix<T>::GetLength()
 {
@@ -144,71 +146,88 @@ int Matrix<T>::GetHeight()
 }
 
 template <class T>
-Cell<T> Matrix<T>::GetCell(int column, int row) const
+Cell<T> Matrix<T>::GetCell(int c, int r) const
 {
-	return arr[column][row];
-}
-
-template <class T>
-Cell<T> Matrix<T>::GetCell(std::string cell) const
-{
-	std::string letters = "";
-	std::string numbers = "";
-	for (int i = 0; i < (int)cell.length(); i++)
+	if (c < 0 || c > height)
 	{
-		if (cell[i] >= 65 && cell[i] <= 90)
-		{
-			letters += cell[i];
-		}
-		else if (cell[i] >= 48 && cell[i] <= 57)
-		{
-			numbers += cell[i];
-		}
-		else
-		{
-			throw Exceptions::BadAddressString();
-		}
+		throw Exceptions::ColumnOutOfBounds;
 	}
-	int c = CellAddress::CalculateIntForAddressString(letters);
-	int r = stoi(numbers);
-
-	if (c > height)
+	if (r < 0 || r > length)
 	{
-		throw Exceptions::BadAddressString("The address is out of range for this matrix");
+		throw Exceptions::RowOutOfBounds;
 	}
-	if (r > length)
+	return matrix[c][r];
+}
+
+template <class T>
+Cell<T> Matrix<T>::GetCell(std::string cellAddress) const
+{
+	CellAddress test{ cellAddress };
+	if (test.GetColumn() < 0 || test.GetColumn() > height)
 	{
-		throw Exceptions::BadAddressString("The address is out of range for this matrix");
+		throw Exceptions::ColumnOutOfBounds();
 	}
-	r -= 1;
-	return arr[c][r];
+	if (test.GetRow() < 0 || test.GetRow() > length)
+	{
+		throw Exceptions::RowOutOfBounds();
+	}
+	return matrix[test.GetColumn()][test.GetRow()];
 }
 
 template <class T>
-T Matrix<T>::GetCellContents(std::string cell) const
+T Matrix<T>::GetCellContents(std::string cellAddress) const
+{
+	CellAddress test{ cellAddress };
+	if (test.GetColumn() < 0 || test.GetColumn() > height)
+	{
+		throw Exceptions::ColumnOutOfBounds();
+	}
+	if (test.GetRow() < 0 || test.GetRow() > length)
+	{
+		throw Exceptions::RowOutOfBounds();
+	}
+	Cell<T> c = matrix[test.GetColumn()][test.GetRow()];
+	return c.GetContents();
+}
+
+template <class T>
+T Matrix<T>::GetCellContents(int c, int r) const
+{
+	if (c < 0 || c > height)
+	{
+		throw Exceptions::ColumnOutOfBounds;
+	}
+	if (r < 0 || r > length)
+	{
+		throw Exceptions::RowOutOfBounds;
+	}
+
+	Cell<T> c = matrix[c][r];
+	return c.GetContents();
+}
+
+template <class T>
+void Matrix<T>::SetCell(std::string& cellAddress, Cell<T> c)
 {
 
 }
-template <class T>
-T Matrix<T>::GetCellContents(int column, int row) const
-{
 
+template <class T>
+void Matrix<T>::SetCell(int c, int r, Cell<T> newContents)
+{
+	if (c < 0 || c > height)
+	{
+		throw Exceptions::ColumnOutOfBounds;
+	}
+	if (r < 0 || r > length)
+	{
+		throw Exceptions::RowOutOfBounds;
+	}
+	matrix[c][r] = newContents;
 }
 
 template <class T>
-void Matrix<T>::SetCell(std::string& cell, Cell<T> c)
-{
-
-}
-
-template <class T>
-void Matrix<T>::SetCell(int col, int row, Cell<T> T)
-{
-
-}
-
-template <class T>
-void Matrix<T>::SetCellContents(std::string& cell, T contents)
+void Matrix<T>::SetCellContents(std::string& cell, T newContents)
 {
 
 }
@@ -224,9 +243,36 @@ Matrix<T>::~Matrix()
 {
 	for (int column = 0; column < height; column++)
 	{
-		delete[] arr[column];
+		delete[] matrix[column];
 	}
-	delete[] arr;
+	delete[] matrix;
+}
+
+template <class T>
+CellAddress Matrix<T>::GetCellAddressFromAddressString(const std::string& a)
+{
+	std::string c{};
+	std::string r{};
+
+	for (int i = 0; i < (int)a.length() ; i++)
+	{
+		if (a[i] >= 'A' && a[i] <= 'Z')
+		{
+			c.push_back(a[i]);
+		}
+		else if (a[i] >= '0' && a[i] <= '9')
+		{
+			r.push_back(a[i]);
+		}
+		else
+		{
+			throw Exceptions::BadAddressString();
+		}
+	}
+	int column = CellAddress::CalculateIntForAddressString(c);
+	int row = stoi(r) - 1;
+	CellAddress temp(column, row);
+	return temp;
 }
 
 template <class T>
@@ -236,13 +282,13 @@ Matrix<T> Matrix<T>::operator=(const Matrix<T>& other)
 	{
 		int height = other.GetHeight();
 		int lenght = other.GetLength();
-		arr = new Cell<T>*[height];
+		matrix = new Cell<T>*[height];
 		for (int column = 0; column <= height - 1; column++)
 		{
-			arr[column] = new Cell<T>[length];
+			matrix[column] = new Cell<T>[length];
 			for (int row = 0; row <= length - 1; row++)
 			{
-				arr[column][row] = other[column][row];
+				matrix[column][row] = other[column][row];
 			}
 		}
 	}

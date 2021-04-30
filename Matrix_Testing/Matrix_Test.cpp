@@ -39,7 +39,7 @@ namespace MatrixTesting
 			auto func = [] { Matrix<int> test = Matrix<int>(701, 10, 0); };
 
 			//assert
-			Assert::ExpectException<Exceptions::HeightOutOfBounds>(func);
+			Assert::ExpectException<Exceptions::RowOutOfBounds>(func);
 		}
 
 		TEST_METHOD(Constructor_ExpectLengthException)
@@ -48,7 +48,7 @@ namespace MatrixTesting
 			auto func = [] { Matrix<int> test = Matrix<int>(1, 701, 0); };
 
 			//assert
-			Assert::ExpectException<Exceptions::LengthOutOfBounds>(func);
+			Assert::ExpectException<Exceptions::ColumnOutOfBounds>(func);
 		}
 
 		TEST_METHOD(Constructor_ExpectMatrixException)
@@ -118,7 +118,63 @@ namespace MatrixTesting
 			auto func1 = [] { std::string test = Matrix<int>(10, 10, 0).GetCell("Y1").GetName(); };
 
 			//Assert
-			Assert::ExpectException<Exceptions::BadAddressString>(func1);
+			Assert::ExpectException<Exceptions::ColumnOutOfBounds>(func1);
+		}
+
+		TEST_METHOD(GetCellAddressFromAddressString_ReturnsACellAddress)
+		{
+			//Arrange
+			Matrix<int> test = Matrix<int>(10, 10, 0);
+			string testString{ "C5" };
+			CellAddress expected{ 3, 4 };
+
+			//act
+			CellAddress actual = test.GetCellAddressFromAddressString(testString);
+
+			//assert
+			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
+		}
+
+		TEST_METHOD(GetCellAddressFromAddressString_ReturnsCorrectAddress)
+		{
+			//Arrange
+			Matrix<int> test = Matrix<int>(10, 10, 0);
+			string testString{ "C5" };
+			CellAddress expected{ 2, 4 };
+
+			//act
+			CellAddress actual = test.GetCellAddressFromAddressString(testString);
+
+			//assert
+			Assert::AreEqual(expected.GetAddressString(), actual.GetAddressString());
+		}
+
+		TEST_METHOD(GetCellAddressFromAddressString_ReturnsCorrectAddressDoubleDigit)
+		{
+			//Arrange
+			Matrix<int> test = Matrix<int>(10, 60, 0);
+			string testString{ "C55" };
+			CellAddress expected{ 2, 54 };
+
+			//act
+			CellAddress actual = test.GetCellAddressFromAddressString(testString);
+
+			//assert
+			Assert::AreEqual(expected.GetAddressString(), actual.GetAddressString());
+		}
+
+		TEST_METHOD(GetCellAddressFromAddressString_ReturnsCorrectAddressDoubleLetter)
+		{
+			//Arrange
+			Matrix<int> test = Matrix<int>(50, 10, 0);
+			string testString{ "AC5" };
+			CellAddress expected{ 28, 4 };
+
+			//act
+			CellAddress actual = test.GetCellAddressFromAddressString(testString);
+
+			//assert
+			Assert::AreEqual(expected.GetAddressString(), actual.GetAddressString());
 		}
 	};
 }

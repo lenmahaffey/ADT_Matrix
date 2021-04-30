@@ -8,43 +8,32 @@ CellAddress::CellAddress()
 
 CellAddress::CellAddress(std::string a)
 {
-	if (a.length() > 0 && a.length() < 3)
+	std::string tempC{};
+	std::string tempR{};
+
+	for (int i = 0; i < (int)a.length(); i++)
 	{
-		int c, r;
-
-		std::string temp;
-		temp.push_back(a[0]);
-		c = CalculateIntForAddressString(temp);
-
-		r = (a[1] - '0') - 1;
-		if (c > 701 || c < 0)
+		if (a[i] >= 'A' && a[i] <= 'Z')
 		{
-			throw Exceptions::HeightOutOfBounds();
+			tempC.push_back(a[i]);
 		}
-		if (r > 701 || r < 0)
+		else if (a[i] >= '0' && a[i] <= '9')
 		{
-			throw Exceptions::LengthOutOfBounds();
+			tempR.push_back(a[i]);
 		}
-
-		column = c;
-		row = r;
+		else
+		{
+			throw Exceptions::BadAddressString();
+		}
 	}
-	else
-	{
-		throw Exceptions::BadAddressString();
-	}
+	int c = CellAddress::CalculateIntForAddressString(tempC);
+	int r = stoi(tempR) - 1;
+	column = c;
+	row = r;
 }
 
 CellAddress::CellAddress(int c, int r)
 {
-	if (c > 701 || c < 0)
-	{
-		throw Exceptions::HeightOutOfBounds();
-	}
-	if (r > 701 || r < 0)
-	{
-		throw Exceptions::LengthOutOfBounds();
-	}
 	row = r;
 	column = c;
 	address = GetAddressString();
@@ -84,26 +73,12 @@ std::string CellAddress::GetAddressString() const
 
 void CellAddress::SetRow(const int& newRow)
 {
-	if (newRow >= 0 && newRow < 701)
-	{
-		row = newRow;
-	}
-	else
-	{
-		throw Exceptions::LengthOutOfBounds();
-	}
+	row = newRow;
 }
 
 void CellAddress::SetColumn(const int& newColumn)
 {
-	if (newColumn >= 0 && newColumn < 701)
-	{
-		column = newColumn;
-	}
-	else
-	{
-		throw Exceptions::HeightOutOfBounds();
-	}
+	column = newColumn;
 }
 
 int CellAddress::CalculateIntForAddressString(const std::string& v)
@@ -129,14 +104,14 @@ int CellAddress::CalculateIntForAddressString(const std::string& v)
 		}
 		total += subTotal;
 	}
-	else
-	{
-		throw Exceptions::CellAddressOutOfRange();
-	}
-	if (total < 0 || total > 701)
-	{
-		throw Exceptions::CellAddressOutOfRange();
-	}
+	//else
+	//{
+	//	throw Exceptions::CellAddressOutOfRange();
+	//}
+	//if (total < 0 || total > 701)
+	//{
+	//	throw Exceptions::CellAddressOutOfRange();
+	//}
 	return total;
 }
 
