@@ -152,6 +152,84 @@ namespace MatrixTesting
 			Assert::AreEqual(expected, actual);
 		}
 
+		TEST_METHOD(ConstructorWithContents_HasNoName)
+		{
+			//arrange
+			Cell<int> testCell{ 5 };
+			string expected = "";
+
+			//act
+			string actual = testCell.GetName();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(ConstructorWithContents_HasAddressObj)
+		{
+			//arrange
+			Cell<int> testCell{ 5 };
+			CellAddress expected{};
+
+			//act
+			CellAddress actual = testCell.GetCellAddress();
+
+			//assert
+			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
+		}
+
+		TEST_METHOD(ConstructorWithContents_HasAddressObjWithEmptyAddressString)
+		{
+			//arrange
+			Cell<int> testCell{ 5 };
+			string expected{};
+
+			//act
+			string actual = testCell.GetCellAddress().GetAddressString();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(ConstructorWithContents_HasContentsType)
+		{
+			//arrange
+			Cell<int> testCell{ 5 };
+			int expected{ 5 };
+
+			//act
+			int actual = testCell.GetContents();
+
+			//assert
+			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
+		}
+
+		TEST_METHOD(ConstructorWithContents_HasCorrectContents)
+		{
+			//arrange
+			Cell<int> testCell{ 5 };
+			int expected{ 5 };
+
+			//act
+			int actual = testCell.GetContents();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(ConstructorWithContents_IsNotEmpty)
+		{
+			//arrange
+			Cell<int> testCell{ 5 };
+			bool expected = false;
+
+			//act
+			bool actual = testCell.IsEmpty();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
 		TEST_METHOD(ConstructorWithAddressAndContents_HasName)
 		{
 			//arrange

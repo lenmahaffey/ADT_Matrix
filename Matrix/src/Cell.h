@@ -10,6 +10,7 @@ class Cell
 {
 public:
 	Cell();
+	Cell(const T& contents);
 	Cell(const std::string& addressString);
 	Cell(const std::string& addressString, const T& contents);
 	bool IsEmpty() const;
@@ -35,6 +36,12 @@ private:
 template <class T>
 Cell<T>::Cell() :
 	contents{}, name{ "" }, cellAddress{}, isEmpty{ true }
+{
+}
+
+template <class T>
+Cell<T>::Cell(const T& contents) :
+	contents {contents}, name{ "" }, cellAddress{}, isEmpty{ false }
 {
 }
 
