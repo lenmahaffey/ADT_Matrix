@@ -5,81 +5,82 @@
 #include <string>
 
 #pragma once
-namespace Exceptions
-{
-	class MatrixException : std::exception
+namespace ADT{
+	namespace Exceptions
 	{
-	public:
-		MatrixException()
+		class MatrixException : std::exception
 		{
-			message = "Undefined Matrix Exception";
-		}
+		public:
+			MatrixException()
+			{
+				message = "Undefined Matrix Exception";
+			}
 
-		MatrixException(std::string s)
-		{
-			message = s;
-		}
+			MatrixException(std::string s)
+			{
+				message = s;
+			}
 
-		std::string what()
-		{
-			return message;
-		}
+			std::string what()
+			{
+				return message;
+			}
 
-	protected:
-		std::string message;
-	};
+		protected:
+			std::string message;
+		};
 
-	class ColumnOutOfBounds : public MatrixException
-	{
-	public:
-		ColumnOutOfBounds()
+		class ColumnOutOfBounds : public MatrixException
 		{
-			message = "The maximum column is 700";
-		}
-		ColumnOutOfBounds(std::string s)
-		{
-			message = s;
-		}
-	};
+		public:
+			ColumnOutOfBounds()
+			{
+				message = "The maximum column is 700";
+			}
+			ColumnOutOfBounds(std::string s)
+			{
+				message = s;
+			}
+		};
 
-	class RowOutOfBounds : public MatrixException
-	{
-	public:
-		RowOutOfBounds()
+		class RowOutOfBounds : public MatrixException
 		{
-			message = "The maximum row is 700";
-		}
-		RowOutOfBounds(std::string s)
-		{
-			message = s;
-		}
-	};
+		public:
+			RowOutOfBounds()
+			{
+				message = "The maximum row is 700";
+			}
+			RowOutOfBounds(std::string s)
+			{
+				message = s;
+			}
+		};
 
-	class BadAddressString : public MatrixException
-	{
-	public:
-		BadAddressString()
+		class BadAddressString : public MatrixException
 		{
-			message = "The address string entered is invalid";
-		}
-		BadAddressString(std::string s)
-		{
-			message = s;
-		}
-	};
+		public:
+			BadAddressString()
+			{
+				message = "The address string entered is invalid";
+			}
+			BadAddressString(std::string s)
+			{
+				message = s;
+			}
+		};
 
-	class CellAddressOutOfRange : public MatrixException
-	{
-	public:
-		CellAddressOutOfRange()
+		class CellAddressOutOfRange : public MatrixException
 		{
-			message = "The address entered is out of range";
-		}
-		CellAddressOutOfRange(std::string s)
-		{
-			message = s;
-		}
-	};
+		public:
+			CellAddressOutOfRange()
+			{
+				message = "The address entered is out of range";
+			}
+			CellAddressOutOfRange(std::string s)
+			{
+				message = s;
+			}
+		};
+	}
 }
-
 #endif // !EXCEPTIONS_H

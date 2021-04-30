@@ -4,7 +4,7 @@
 #include "../Matrix/src/MatrixExceptions.h"
 using namespace std;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-using namespace Exceptions;
+using namespace ADT::Exceptions;
 namespace MatrixTesting
 {
 	TEST_CLASS(CellAddress_Test)

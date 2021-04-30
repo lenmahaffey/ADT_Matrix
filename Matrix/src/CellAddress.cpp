@@ -23,7 +23,7 @@ CellAddress::CellAddress(std::string a)
 		}
 		else
 		{
-			throw Exceptions::BadAddressString();
+			throw ADT::Exceptions::BadAddressString();
 		}
 	}
 	int c = CellAddress::CalculateIntForAddressString(tempC);
@@ -104,23 +104,11 @@ int CellAddress::CalculateIntForAddressString(const std::string& v)
 		}
 		total += subTotal;
 	}
-	//else
-	//{
-	//	throw Exceptions::CellAddressOutOfRange();
-	//}
-	//if (total < 0 || total > 701)
-	//{
-	//	throw Exceptions::CellAddressOutOfRange();
-	//}
 	return total;
 }
 
 std::string CellAddress::CalculateAddressStringForInt(const int& v)
 {
-	if (v < 0 || v > 701)
-	{
-		throw Exceptions::CellAddressOutOfRange();
-	}
 	int value{ v };
 	std::string s = "";
 	int calcValue = value / 26;
@@ -186,7 +174,7 @@ CellAddress CellAddress::operator =(const std::string& a)
 	}
 	else
 	{
-		throw Exceptions::BadAddressString();
+		throw ADT::Exceptions::BadAddressString();
 	}
 	return *this;
 }
