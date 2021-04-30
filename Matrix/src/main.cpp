@@ -14,33 +14,7 @@ using namespace std;
 
 int main()
 {
-	try
-	{
-		CellAddress test(7087, 0);
-	}
-	catch (Exceptions::MatrixException e)
-	{
-		cout << e.what() << endl;
-	}
-
-	try
-	{
-		CellAddress test(0, 780);
-	}
-	catch (Exceptions::MatrixException e)
-	{
-		cout << e.what() << endl;
-	}
-
-	try
-	{
-		Matrix<char> testMatrix = Matrix<char>(701,10,'E');
-	}
-	catch (Exceptions::MatrixException e)
-	{
-		cout << e.what() << endl;
-	}
-	Matrix<char> game = Matrix<char>(10, 10, 'E');
+	Matrix<char> game = Matrix<char>(4 ,6, 'E');
 	game.Display();
 	return 0;
 }

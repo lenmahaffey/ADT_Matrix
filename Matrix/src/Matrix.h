@@ -8,7 +8,7 @@ class Matrix
 {
 public:
 	Matrix<T>();
-	Matrix<T>(int height, int lenght, T defaultValue);
+	Matrix<T>(int height, int length, T defaultValue);
 	Matrix<T>(const Matrix<T>& other);
 	void Display();
 	int GetLength() const;
@@ -60,21 +60,21 @@ template <class T>
 Matrix<T>::Matrix(int columnheight, int rowLength, T defaultValue) :
 	height(columnheight), length(rowLength)
 {
-	if (columnheight <= 0 || columnheight > 700)
-	{
-		throw Exceptions::RowOutOfBounds();
-	}
-
-	if (rowLength <= 0 || rowLength > 700)
+	if (height <= 0 || height > 700)
 	{
 		throw Exceptions::ColumnOutOfBounds();
 	}
 
-	matrix = new Cell<T>*[height];
-	for (int column = 0; column <= columnheight - 1; column++)
+	if (length <= 0 || length > 700)
 	{
-		matrix[column] = new Cell<T>[rowLength];
-		for (int row = 0; row <= rowLength - 1; row++)
+		throw Exceptions::RowOutOfBounds();
+	}
+
+	matrix = new Cell<T>*[length];
+	for (int column = 0; column <= length - 1; column++)
+	{
+		matrix[column] = new Cell<T>[height];
+		for (int row = 0; row <= height - 1; row++)
 		{
 			Cell<T> current;
 			CellAddress currentAddress(column, row);
@@ -112,24 +112,24 @@ Matrix<T>::Matrix(const Matrix<T>& other)
 template <class T>
 void Matrix<T>::Display()
 {
-	std::cout << std::string((6 * (length + 1)), '-') << std::endl;
+	std::cout << std::string((6 * (height + 1)), '-') << std::endl;
 	std::cout << "   ";
-	for (int i = 0; i < length; i++)
+	for (int i = 0; i < height; i++)
 	{
 		std::cout << "  |  " << (char)(i + 65);
 	}
 	std::cout << "  |" << std::endl;
 
-	std::cout << std::string((6 * (length + 1)), '-') << std::endl;
-	for (int row = 0; row < height; row++)
+	std::cout << std::string((6 * (height + 1)), '-') << std::endl;
+	for (int row = 0; row < length; row++)
 	{
 		std::cout << "  " << row + 1 << "  |";
-		for (int column = 0; column < length; column++)
+		for (int column = 0; column < height; column++)
 		{
 			std::cout << "  " << matrix[row][column] << "  |";
 		}
 		std::cout << std::endl;
-		std::cout << std::string((6 * (length + 1)), '-') << std::endl;
+		std::cout << std::string((6 * (height + 1)), '-') << std::endl;
 	}
 }
 
@@ -269,7 +269,7 @@ void Matrix<T>::SetCellContents(const int& c, const int& r, const T& newContents
 template <class T>
 Matrix<T>::~Matrix()
 {
-	for (int column = 0; column < height; column++)
+	for (int column = 0; column < length; column++)
 	{
 		delete[] matrix[column];
 	}
