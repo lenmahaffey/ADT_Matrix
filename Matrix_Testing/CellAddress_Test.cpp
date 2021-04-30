@@ -4,6 +4,7 @@
 #include "../Matrix/src/MatrixExceptions.h"
 using namespace std;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace ADT;
 using namespace ADT::Exceptions;
 namespace MatrixTesting
 {

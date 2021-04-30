@@ -16,8 +16,8 @@ namespace ADT
 		void Display();
 		int GetLength() const;
 		int GetHeight() const;
-		Cell::Cell<T> GetCell(const std::string& cell) const;
-		Cell::Cell<T> GetCell(const int& column, const int& row) const;
+		Cell<T> GetCell(const std::string& cell) const;
+		Cell<T> GetCell(const int& column, const int& row) const;
 		T GetCellContents(const std::string& cell) const;
 		T GetCellContents(const int& column, const int& row) const;
 		void SetCell(const std::string& cell, const Cell<T>& T);
@@ -149,7 +149,7 @@ namespace ADT
 	}
 
 	template <class T>
-	Cell<T> Matrix<T>::GetCell(const int& c, const int& r) const
+	ADT::Cell<T> Matrix<T>::GetCell(const int& c, const int& r) const
 	{
 		if (c < 0 || c > height)
 		{

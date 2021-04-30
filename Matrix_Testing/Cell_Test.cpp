@@ -2,6 +2,7 @@
 #include "../Matrix/src/Cell.h"
 
 using namespace std;
+using namespace ADT;
 using namespace ADT::Exceptions;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

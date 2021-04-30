@@ -1,12 +1,12 @@
 #include "CellAddress.h"
-CellAddress::CellAddress()
+ADT::CellAddress::CellAddress()
 {
 	row = -1;
 	column = -1;
 	address = "";
 }
 
-CellAddress::CellAddress(std::string a)
+ADT::CellAddress::CellAddress(std::string a)
 {
 	std::string tempC{};
 	std::string tempR{};
@@ -32,31 +32,31 @@ CellAddress::CellAddress(std::string a)
 	row = r;
 }
 
-CellAddress::CellAddress(int c, int r)
+ADT::CellAddress::CellAddress(int c, int r)
 {
 	row = r;
 	column = c;
 	address = GetAddressString();
 }
 
-CellAddress::CellAddress(const CellAddress& other)
+ADT::CellAddress::CellAddress(const CellAddress& other)
 {
 	row = other.row;
 	column = other.column;
 	address = other.address;
 }
 
-int CellAddress::GetRow() const
+int ADT::CellAddress::GetRow() const
 {
 	return row;
 }
 
-int CellAddress::GetColumn() const
+int ADT::CellAddress::GetColumn() const
 {
 	return column;
 }
 
-std::string CellAddress::GetAddressString() const
+std::string ADT::CellAddress::GetAddressString() const
 {
 	if (row == -1 || column == -1)
 	{
@@ -71,17 +71,17 @@ std::string CellAddress::GetAddressString() const
 	}
 }
 
-void CellAddress::SetRow(const int& newRow)
+void ADT::CellAddress::SetRow(const int& newRow)
 {
 	row = newRow;
 }
 
-void CellAddress::SetColumn(const int& newColumn)
+void ADT::CellAddress::SetColumn(const int& newColumn)
 {
 	column = newColumn;
 }
 
-int CellAddress::CalculateIntForAddressString(const std::string& v)
+int ADT::CellAddress::CalculateIntForAddressString(const std::string& v)
 {
 	std::string value{ v };
 	int total = 0;
@@ -107,7 +107,7 @@ int CellAddress::CalculateIntForAddressString(const std::string& v)
 	return total;
 }
 
-std::string CellAddress::CalculateAddressStringForInt(const int& v)
+std::string ADT::CellAddress::CalculateAddressStringForInt(const int& v)
 {
 	int value{ v };
 	std::string s = "";
@@ -148,7 +148,7 @@ std::string CellAddress::CalculateAddressStringForInt(const int& v)
 	}
 }
 
-CellAddress CellAddress::operator =(const CellAddress& otherAddress)
+ADT::CellAddress ADT::CellAddress::operator =(const ADT::CellAddress& otherAddress)
 {
 	if (this != &otherAddress)
 	{
@@ -158,7 +158,7 @@ CellAddress CellAddress::operator =(const CellAddress& otherAddress)
 	return *this;
 }
 
-CellAddress CellAddress::operator =(const std::string& a)
+ADT::CellAddress ADT::CellAddress::operator =(const std::string& a)
 {
 	if (a.length() > 0 && a.length() < 3)
 	{
@@ -179,12 +179,12 @@ CellAddress CellAddress::operator =(const std::string& a)
 	return *this;
 }
 
-bool CellAddress::operator ==(const CellAddress& a) const
+bool ADT::CellAddress::operator ==(const CellAddress& a) const
 {
 	return (this->row == a.row && this->column == a.column);
 }
 
-bool CellAddress::operator !=(const CellAddress& a) const
+bool ADT::CellAddress::operator !=(const CellAddress& a) const
 {
 	return (this->row != a.row || this->column != a.column);
 }
