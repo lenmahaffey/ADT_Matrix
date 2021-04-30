@@ -10,6 +10,8 @@ class Cell
 {
 public:
 	Cell();
+	Cell(const int& c, const int& r);
+	Cell(const int& c, const int& r, const T& contents);
 	Cell(const T& contents);
 	Cell(const std::string& addressString);
 	Cell(const std::string& addressString, const T& contents);
@@ -37,6 +39,20 @@ template <class T>
 Cell<T>::Cell() :
 	contents{}, name{ "" }, cellAddress{}, isEmpty{ true }
 {
+}
+
+template <class T>
+Cell<T>::Cell(const int& c, const int& r):
+	contents {}, name{ "" }, cellAddress{c,r}, isEmpty{ true }
+{
+	name = cellAddress.GetAddressString();
+}
+
+template <class T>
+Cell<T>::Cell(const int& c, const int& r, const T& contents) :
+	contents{ contents }, name{ "" }, cellAddress{ c,r }, isEmpty{ false }
+{
+	name = cellAddress.GetAddressString();
 }
 
 template <class T>

@@ -74,7 +74,7 @@ namespace MatrixTesting
 			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(ConstructorWithAddress_HasAddressObj)
+		TEST_METHOD(ConstructorWithStringAddress_HasAddressObj)
 		{
 			//arrange
 			Cell<int> testCell{ "B3" };
@@ -87,7 +87,7 @@ namespace MatrixTesting
 			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
 		}
 
-		TEST_METHOD(ConstructorWithAddress_HasAddressObjWithCorrectAddressString)
+		TEST_METHOD(ConstructorWithStringAddress_HasAddressObjWithCorrectAddressString)
 		{
 			//arrange
 			Cell<int> testCell{ "B3" };
@@ -100,7 +100,7 @@ namespace MatrixTesting
 			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(ConstructorWithAddress_HasNameString)
+		TEST_METHOD(ConstructorWithStringAddress_HasNameString)
 		{
 			//arrange
 			Cell<int> testCell{ "B3" };
@@ -113,7 +113,7 @@ namespace MatrixTesting
 			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
 		}
 
-		TEST_METHOD(ConstructorWithAddress_HasCorrectNameString)
+		TEST_METHOD(ConstructorWithStringAddress_HasCorrectNameString)
 		{
 			//arrange
 			Cell<int> testCell{ "B3" };
@@ -126,7 +126,7 @@ namespace MatrixTesting
 			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(ConstructorWithAddress_HasNoContents)
+		TEST_METHOD(ConstructorWithStringAddress_HasNoContents)
 		{
 			//arrange
 			Cell<int> testCell{ "B3" };
@@ -139,7 +139,7 @@ namespace MatrixTesting
 			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(ConstructorWithAddress_IsEmpty)
+		TEST_METHOD(ConstructorWithStringAddress_IsEmpty)
 		{
 			//arrange
 			Cell<int> testCell{ "B3" };
@@ -151,7 +151,173 @@ namespace MatrixTesting
 			//assert
 			Assert::AreEqual(expected, actual);
 		}
+		TEST_METHOD(ConstructorWithIntAddress_HasAddressObj)
+		{
+			//arrange
+			Cell<int> testCell{ 1, 2 };
+			CellAddress expected{};
 
+			//act
+			CellAddress actual = testCell.GetCellAddress();
+
+			//assert
+			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
+		}
+
+		TEST_METHOD(ConstructorWithIntAddress_HasAddressObjWithCorrectAddressString)
+		{
+			//arrange
+			Cell<int> testCell{ 1, 2 };
+			string expected{ "B3" };
+
+			//act
+			string actual = testCell.GetCellAddress().GetAddressString();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(ConstructorWithIntAddress_HasNameString)
+		{
+			//arrange
+			Cell<int> testCell{ 1, 2 };
+			string expected = "B3";
+
+			//act
+			string actual = testCell.GetName();
+
+			//assert
+			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
+		}
+
+		TEST_METHOD(ConstructorWithIntAddress_HasCorrectNameString)
+		{
+			//arrange
+			Cell<int> testCell{ 1, 2 };
+			string expected = "B3";
+
+			//act
+			string actual = testCell.GetName();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(ConstructorWithIntAddress_HasNoContents)
+		{
+			//arrange
+			Cell<int> testCell{ 1, 2 };
+			int expected{};
+
+			//act
+			int actual = testCell.GetContents();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(ConstructorWithIntAddress_IsEmpty)
+		{
+			//arrange
+			Cell<int> testCell{ 1, 2 };
+			bool expected = true;
+
+			//act
+			bool actual = testCell.IsEmpty();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+		TEST_METHOD(ConstructorWithIntAddressAndContents_HasAddressObj)
+		{
+			//arrange
+			Cell<int> testCell{ 1, 2 };
+			CellAddress expected{};
+
+			//act
+			CellAddress actual = testCell.GetCellAddress();
+
+			//assert
+			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
+		}
+
+		TEST_METHOD(ConstructorWithIntAddressAndContents_HasAddressObjWithCorrectAddressString)
+		{
+			//arrange
+			Cell<int> testCell{ 1, 2 };
+			string expected{ "B3" };
+
+			//act
+			string actual = testCell.GetCellAddress().GetAddressString();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(ConstructorWithIntAddressAndContents_HasNameString)
+		{
+			//arrange
+			Cell<int> testCell{ 1, 2, 5 };
+			string expected = "B3";
+
+			//act
+			string actual = testCell.GetName();
+
+			//assert
+			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
+		}
+
+		TEST_METHOD(ConstructorWithIntAddressAndContents_HasCorrectNameString)
+		{
+			//arrange
+			Cell<int> testCell{ 1, 2, 5 };
+			string expected = "B3";
+
+			//act
+			string actual = testCell.GetName();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(ConstructorWithIntAddressAndContents_HasContents)
+		{
+			//arrange
+			Cell<int> testCell{ 1, 2, 5 };
+			int expected{ 5 };
+
+			//act
+			int actual = testCell.GetContents();
+
+			//assert
+			Assert::AreEqual(typeid(expected).name(), typeid(actual).name());
+		}
+
+		TEST_METHOD(ConstructorWithIntAddressAndContents_HasCorrectContents)
+		{
+			//arrange
+			Cell<int> testCell{ 1, 2, 5 };
+			int expected{ 5 };
+
+			//act
+			int actual = testCell.GetContents();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(ConstructorWithIntAddressAndContents_IsNotEmpty)
+		{
+			//arrange
+			Cell<int> testCell{ 1, 2, 5 };
+			bool expected = false;
+
+			//act
+			bool actual = testCell.IsEmpty();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
 		TEST_METHOD(ConstructorWithContents_HasNoName)
 		{
 			//arrange

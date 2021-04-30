@@ -150,11 +150,11 @@ Cell<T> Matrix<T>::GetCell(int c, int r) const
 {
 	if (c < 0 || c > height)
 	{
-		throw Exceptions::ColumnOutOfBounds;
+		throw Exceptions::ColumnOutOfBounds();
 	}
 	if (r < 0 || r > length)
 	{
-		throw Exceptions::RowOutOfBounds;
+		throw Exceptions::RowOutOfBounds();
 	}
 	return matrix[c][r];
 }
