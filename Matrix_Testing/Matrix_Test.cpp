@@ -39,7 +39,7 @@ namespace MatrixTesting
 			auto func = [] { Matrix<int> testMatrix = Matrix<int>(701, 10, 0); };
 
 			//assert
-			Assert::ExpectException<Exceptions::RowOutOfBounds>(func);
+			Assert::ExpectException<Exceptions::ColumnOutOfBounds>(func);
 		}
 
 		TEST_METHOD(Constructor_ExpectLengthException)
@@ -48,7 +48,7 @@ namespace MatrixTesting
 			auto func = [] { Matrix<int> testMatrix = Matrix<int>(1, 701, 0); };
 
 			//assert
-			Assert::ExpectException<Exceptions::ColumnOutOfBounds>(func);
+			Assert::ExpectException<Exceptions::RowOutOfBounds>(func);
 		}
 
 		TEST_METHOD(Constructor_ExpectMatrixException)
