@@ -1,5 +1,6 @@
 #include "CppUnitTest.h"
 #include "../Matrix/src/matrix.h"
+#include <cassert>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
@@ -332,6 +333,162 @@ namespace MatrixTesting
 
 			//assert
 			Assert::AreEqual(expected.GetAddressString(), actual.GetAddressString());
+		}
+
+		TEST_METHOD(EqualityOperator_ReturnsTrueCorrectly)
+		{
+			//arrange
+			Matrix<int> testMatrix1 = Matrix<int>(50, 10, 0);
+			Matrix<int> testMatrix2 = Matrix<int>(50, 10, 0);
+			bool expected{ true };
+
+			//act
+			bool actual = (testMatrix1 == testMatrix2);
+
+
+			//assert
+			Assert::AreEqual(expected, actual);
+
+		}
+
+		TEST_METHOD(EqualityOperator_ReturnsFalseCorrectlyLength)
+		{
+			//arrange
+			Matrix<int> testMatrix1 = Matrix<int>(50, 10, 0);
+			Matrix<int> testMatrix2 = Matrix<int>(50, 20, 0);
+			bool expected{ false };
+
+			//act
+			bool actual = (testMatrix1 == testMatrix2);
+
+
+			//assert
+			Assert::AreEqual(expected, actual);
+
+		}
+
+		TEST_METHOD(EqualityOperator_ReturnsFalseCorrectlyHeight)
+		{
+			//arrange
+			Matrix<int> testMatrix1 = Matrix<int>(50, 10, 0);
+			Matrix<int> testMatrix2 = Matrix<int>(10, 10, 0);
+			bool expected{ false };
+
+			//act
+			bool actual = (testMatrix1 == testMatrix2);
+
+
+			//assert
+			Assert::AreEqual(expected, actual);
+
+		}
+
+		TEST_METHOD(EqualityOperator_ReturnsFalseCorrectlyAllContent)
+		{
+			//arrange
+			Matrix<int> testMatrix1 = Matrix<int>(50, 10, 0);
+			Matrix<int> testMatrix2 = Matrix<int>(50, 10, 2);
+			bool expected{ false };
+
+			//act
+			bool actual = (testMatrix1 == testMatrix2);
+
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(EqualityOperator_ReturnsFalseCorrectlyOneContent)
+		{
+			//arrange
+			Matrix<int> testMatrix1 = Matrix<int>(50, 10, 0);
+			Matrix<int> testMatrix2 = Matrix<int>(50, 10, 0);
+			bool expected{ false };
+
+			//act
+			testMatrix2.SetCellContents("B2", 6);
+			bool actual = (testMatrix1 == testMatrix2);
+
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(InequalityOperator_ReturnsTrueCorrectly)
+		{
+			//arrange
+			Matrix<int> testMatrix1 = Matrix<int>(50, 10, 0);
+			Matrix<int> testMatrix2 = Matrix<int>(10, 10, 0);
+			bool expected{ true };
+
+			//act
+			bool actual = (testMatrix1 != testMatrix2);
+
+
+			//assert
+			Assert::AreEqual(expected, actual);
+
+		}
+
+		TEST_METHOD(InequalityOperator_ReturnsTrueCorrectlyLength)
+		{
+			//arrange
+			Matrix<int> testMatrix1 = Matrix<int>(50, 10, 0);
+			Matrix<int> testMatrix2 = Matrix<int>(50, 20, 0);
+			bool expected{ true };
+
+			//act
+			bool actual = (testMatrix1 != testMatrix2);
+
+
+			//assert
+			Assert::AreEqual(expected, actual);
+
+		}
+
+		TEST_METHOD(InequalityOperator_ReturnsTrueCorrectlyHeight)
+		{
+			//arrange
+			Matrix<int> testMatrix1 = Matrix<int>(50, 10, 0);
+			Matrix<int> testMatrix2 = Matrix<int>(10, 10, 0);
+			bool expected{ true };
+
+			//act
+			bool actual = (testMatrix1 != testMatrix2);
+
+			//assert
+			Assert::AreEqual(expected, actual);
+
+		}
+
+		TEST_METHOD(InequalityOperator_ReturnsTrueCorrectlyAllContent)
+		{
+			//arrange
+			Matrix<int> testMatrix1 = Matrix<int>(50, 10, 0);
+			Matrix<int> testMatrix2 = Matrix<int>(50, 50, 2);
+			bool expected{ true };
+
+			//act
+			bool actual = (testMatrix1 != testMatrix2);
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(InequalityOperator_ReturnsTrueCorrectlyOneContent)
+		{
+			//arrange
+			Matrix<int> testMatrix1 = Matrix<int>(50, 10, 0);
+			Matrix<int> testMatrix2 = Matrix<int>(50, 10, 0);
+			bool expected{ true };
+
+			//act
+			testMatrix2.SetCellContents("B2", 6);
+			bool actual = (testMatrix1 != testMatrix2);
+
+
+			//assert
+			Assert::AreEqual(expected, actual);
 		}
 	};
 }

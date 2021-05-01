@@ -28,6 +28,8 @@ namespace ADT
 		~Matrix();
 
 		Matrix<T> operator=(const Matrix<T>& other);
+		bool operator==(const Matrix<T>& other);
+		bool operator!=(const Matrix<T>& other);
 
 	private:
 		int length;
@@ -324,5 +326,52 @@ namespace ADT
 			}
 		}
 	}
+	template <class T>
+	bool Matrix<T>::operator==(const Matrix<T>& other)
+	{
+		if (length != other.length || height != other.height)
+		{
+			return false;
+		}
+
+
+		for (int c = 0; c < length; c++)
+		{
+			for (int r = 0; r < height; r++)
+			{
+				Cell<T> thisCell{matrix[c][r]};
+				Cell<T> otherCell{ other.matrix[c][r] };
+				if ( thisCell.GetContents() != otherCell.GetContents())
+				{
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	template <class T>
+	bool Matrix<T>::operator!=(const Matrix<T>& other)
+	{
+		if (length != other.length || height != other.height)
+		{
+			return true;
+		}
+
+		for (int c = 0; c < length; c++)
+		{
+			for (int r = 0; r < height; r++)
+			{
+				Cell<T> temp1{ matrix[c][r] };
+				Cell<T> temp2 = { other.matrix[c][r] };
+				if (temp1.GetContents() != temp2.GetContents())
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
+
 #endif //MATRIX_H
