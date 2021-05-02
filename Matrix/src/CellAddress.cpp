@@ -25,13 +25,13 @@ ADT::CellAddress::CellAddress(std::string a)
 		}
 	}
 	int c = CellAddress::CalculateIntForAddressString(tempC);
-	int r = stoi(tempR) - 1;
+	int r = stoi(tempR) -1 ;
 	column = c;
 	row = r;
 	addressString = a;
 }
 
-ADT::CellAddress::CellAddress(int c, int r)
+ADT::CellAddress::CellAddress(const int& c, const int& r)
 {
 	row = r;
 	column = c;

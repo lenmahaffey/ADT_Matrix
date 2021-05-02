@@ -53,6 +53,113 @@ namespace MatrixTesting
 			Assert::ExpectException<Exceptions::RowOutOfBounds>(func);
 		}
 
+		TEST_METHOD(Constructor_Constuct2x3Correctly_HasTopLeftCorner)
+		{
+			//arrange
+			Matrix<int> testMatrix{ 2, 3, 0 };
+			string expected{ "A1" };
+
+			//act
+			string actual{ testMatrix.GetCell(0,0).GetCellAddressString() };
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(Constructor_Constuct2x3Correctly_HasTopRightCorner)
+		{
+			//arrange
+			Matrix<int> testMatrix{ 2, 3, 0 };
+			CellAddress testAddress{ "B1" };
+			string expected{ testAddress.GetAddressString() };
+
+			//act
+			string actual{ testMatrix.GetCell(1, 0).GetCellAddressString() };
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(Constructor_Constuct2x3Correctly_HasBottomLeftCorner)
+		{
+			//arrange
+			Matrix<int> testMatrix{ 2, 3, 0 };
+			CellAddress testAddress{ "A2" };
+			string expected{ testAddress.GetAddressString() };
+
+			//act
+			string actual{ testMatrix.GetCell(0, 1).GetCellAddressString() };
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(Constructor_Constuct2x3Correctly_HasBottomRightCorner)
+		{
+			//arrange
+			Matrix<int> testMatrix{ 2, 3, 0 };
+			CellAddress testAddress{ "B2" };
+			string expected{ testAddress.GetAddressString() };
+
+			//act
+			string actual{ testMatrix.GetCell(1, 1).GetCellAddressString() };
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(Constructor_Constuct3x2Correctly_HasTopLeftCorner)
+		{
+			//arrange
+			Matrix<int> testMatrix{ 3, 2, 0 };
+			string expected{"A1"};
+
+			//act
+			string actual{ testMatrix.GetCell(0, 0).GetCellAddressString() };
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(Constructor_Constuct3x2Correctly_HasTopRightCorner)
+		{
+			//arrange
+			Matrix<int> testMatrix{ 3, 2, 0 };
+			string expected{ "C1" };
+
+			//act
+			string actual{ testMatrix.GetCell(2, 0).GetCellAddressString() };
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(Constructor_Constuct3x2Correctly_HasBottomLeftCorner)
+		{
+			//arrange
+			Matrix<int> testMatrix{ 3, 2, 0 };
+			string expected{ "A2" };
+
+			//act
+			string actual{ testMatrix.GetCell(0, 1).GetCellAddressString() };
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(Constructor_Constuct3x2Correctly_HasBottomRightCorner)
+		{
+			//arrange
+			Matrix<int> testMatrix{ 3, 2, 0 };
+			string expected{ "C2" };
+
+			//act
+			string actual{ testMatrix.GetCell(2, 1).GetCellAddressString() };
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
 		TEST_METHOD(CopyConstructor_HasLength)
 		{
 			//arrange
@@ -114,13 +221,13 @@ namespace MatrixTesting
 		{
 			//arrange
 			Matrix<int> testMatrix{ 10, 10, 0 };
-			string expected = "C5";
+			Cell<int> expected{ 2, 4, 0 };
 
 			//act
-			string actual = testMatrix.GetCell(2, 4).GetName();
+			Cell<int> actual = testMatrix.GetCell(2, 4);
 
 			//assert
-			Assert::AreEqual(expected, actual);
+			Assert::AreEqual(expected.GetCellAddressString(), actual.GetCellAddressString());
 		}
 
 
@@ -140,7 +247,7 @@ namespace MatrixTesting
 		TEST_METHOD(GetCellWithAddressString_ReturnsCorrectCell)
 		{
 			//arrange
-			Matrix<int> testMatrix = Matrix<int>{ 10, 10, 0 };
+			Matrix<int> testMatrix{ 10, 10, 0 };
 			string expected = "A1";
 
 			//act
@@ -247,6 +354,7 @@ namespace MatrixTesting
 		{
 			//Arrange
 			Matrix<int> testMatrix{ 10, 10, 0 };
+			string testString{ "C5" };
 			CellAddress expected{ 2, 4 };
 
 			//act
@@ -259,24 +367,25 @@ namespace MatrixTesting
 		TEST_METHOD(GetCellFromAddressString_ReturnsCellAddressFromDoubleDigit)
 		{
 			//Arrange
-			Matrix<int> testMatrix{ 10, 60, 0 };
-			Cell<int> expected{ 2, 9 };
+			Matrix<int> testMatrix{ 2, 27, 0 };
+			Cell<int> testCell{1, 26, 0};
+			string expected{ "B27" };
 
 			//act
-			Cell<int> actual{ testMatrix.GetCell("C9") };
+			Cell<int> actual{ testMatrix.GetCell("B27") };
 
 			//assert
-			Assert::AreEqual(expected.GetCellAddressString(), actual.GetCellAddressString());
+			Assert::AreEqual(expected, actual.GetCellAddressString());
 		}
 
 		TEST_METHOD(GetCellFromAddressString_ReturnsCorrectCellFromDoubleLetter)
 		{
 			//Arrange
-			Matrix<int> testMatrix{ 50, 10, 0 };
-			Cell<int> expected{ 28, 4 };
+			Matrix<int> testMatrix{ 27, 5, 0 };
+			Cell<int> expected{ 26, 4, 0 };
 
 			//act
-			Cell<int> actual = testMatrix.GetCell(28, 4);
+			Cell<int> actual = testMatrix.GetCell("AA5");
 
 			//assert
 			Assert::AreEqual(expected.GetCellAddressString(), actual.GetCellAddressString());
@@ -285,11 +394,11 @@ namespace MatrixTesting
 		TEST_METHOD(GetCellFromAddressString_ReturnsCorrectCellFromDoubleLetterandDigit)
 		{
 			//Arrange
-			Matrix<int> testMatrix{ 50, 60, 0 };
-			Cell<int> expected{ 28, 54 };
+			Matrix<int> testMatrix{ 28, 54, 7 };
+			Cell<int> expected{ 27, 53, 7 };
 
 			//act
-			Cell<int> actual = testMatrix.GetCell(28, 54);
+			Cell<int> actual = testMatrix.GetCell("AB54");
 
 			//assert
 			Assert::AreEqual(expected.GetCellAddressString(), actual.GetCellAddressString());
@@ -438,12 +547,12 @@ namespace MatrixTesting
 		TEST_METHOD(InequalityOperator_ReturnsTrueCorrectlyOneContent)
 		{
 			//arrange
-			Matrix<int> testMatrix1{50, 10, 0};
-			Matrix<int> testMatrix2{50, 10, 0};
+			Matrix<int> testMatrix1{3, 2, 0};
+			Matrix<int> testMatrix2{3, 2, 0};
 			bool expected{ true };
 
 			//act
-			testMatrix2.SetCellContents("B2", 6);
+			testMatrix2.SetCellContents("B1", 6);
 			bool actual = (testMatrix1 != testMatrix2);
 
 

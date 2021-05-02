@@ -15,8 +15,11 @@ using namespace ADT;
 
 int main()
 {
-	Matrix<char> game = Matrix<char>(4 ,6, 'E');
+	Matrix<char> game = Matrix<char>(10 , 5, 'E');
 	game.Display();
+
+	Matrix<char> game1 = Matrix<char>(5, 10, 'E');
+	game1.Display();
 	return 0;
 }
 

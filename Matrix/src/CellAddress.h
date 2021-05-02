@@ -10,8 +10,8 @@ namespace ADT
 	{
 	public:
 		CellAddress();
-		CellAddress(std::string address);
-		CellAddress(int column, int row);
+		CellAddress(const std::string address);
+		CellAddress(const int& column, const int& row);
 		CellAddress(const CellAddress& other);
 		int GetRow() const;
 		int GetColumn() const;
