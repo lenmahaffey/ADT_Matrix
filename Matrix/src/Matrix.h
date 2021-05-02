@@ -11,7 +11,7 @@ namespace ADT
 	{
 	public:
 		Matrix<T>();
-		Matrix<T>(int height, int length, T defaultValue);
+		Matrix<T>(int length, int height, T defaultValue);
 		Matrix<T>(const Matrix<T>& other);
 		void Display();
 		int GetLength() const;
@@ -41,40 +41,6 @@ namespace ADT
 	Matrix<T>::Matrix() :
 		height(0), length(0)
 	{
-		matrix = new Cell<T>*[height];
-		for (int column = 0; column <= height - 1; column++)
-		{
-			matrix[column] = new Cell<T>[length];
-			for (int row = 0; row <= length - 1; row++)
-			{
-				Cell<T> current;
-				CellAddress currentAddress(column, row);
-				current.SetContents(' ');
-				current.SetAddress(currentAddress);
-				std::string n;
-				char col = column + 65;
-				std::string r = std::to_string(row + 1);
-				n += col;
-				n += r;
-				current.SetName(n);
-				matrix[column][row] = current;
-			}
-		}
-	}
-	template <class T>
-	Matrix<T>::Matrix(int columnheight, int rowLength, T defaultValue) :
-		height(columnheight), length(rowLength)
-	{
-		if (height <= 0 || height > 700)
-		{
-			throw Exceptions::ColumnOutOfBounds();
-		}
-
-		if (length <= 0 || length > 700)
-		{
-			throw Exceptions::RowOutOfBounds();
-		}
-
 		matrix = new Cell<T>*[length];
 		for (int column = 0; column <= length - 1; column++)
 		{
@@ -82,19 +48,41 @@ namespace ADT
 			for (int row = 0; row <= height - 1; row++)
 			{
 				Cell<T> current;
-				CellAddress currentAddress(column, row);
-				current.SetContents(defaultValue);
+				CellAddress currentAddress{ column, row };
+				current.SetContents(T);
 				current.SetAddress(currentAddress);
-				std::string n;
-				char col = column + 65;
-				std::string r = std::to_string(row + 1);
-				n += col;
-				n += r;
-				current.SetName(n);
 				matrix[column][row] = current;
 			}
 		}
 	}
+
+	template <class T>
+	Matrix<T>::Matrix(int length, int height, T defaultValue) :
+		height(height), length(length)
+	{
+		if (height <= 0 || height > 700)
+		{
+			throw Exceptions::RowOutOfBounds();
+		}
+
+		if (length <= 0 || length > 700)
+		{
+			throw Exceptions::ColumnOutOfBounds();
+		}
+
+		matrix = new Cell<T>*[height];
+		for (int column = 0; column <= height - 1; column++)
+		{
+			matrix[column] = new Cell<T>[length];
+			for (int row = 0; row <= length - 1; row++)
+			{
+				CellAddress currentAddress(column, row);
+				Cell<T> current{column, row, defaultValue};
+				matrix[column][row] = current;
+			}
+		}
+	}
+
 	template <class T>
 	Matrix<T>::Matrix(const Matrix<T>& other)
 	{
@@ -117,24 +105,24 @@ namespace ADT
 	template <class T>
 	void Matrix<T>::Display()
 	{
-		std::cout << std::string((6 * (height + 1)), '-') << std::endl;
+		std::cout << std::string((6 * (length + 1)), '-') << std::endl;
 		std::cout << "   ";
-		for (int i = 0; i < height; i++)
+		for (int i = 0; i < length; i++)
 		{
 			std::cout << "  |  " << (char)(i + 65);
 		}
 		std::cout << "  |" << std::endl;
 
-		std::cout << std::string((6 * (height + 1)), '-') << std::endl;
-		for (int row = 0; row < length; row++)
+		std::cout << std::string((6 * (length + 1)), '-') << std::endl;
+		for (int col = 0; col < height; col++)
 		{
-			std::cout << "  " << row + 1 << "  |";
-			for (int column = 0; column < height; column++)
+			std::cout << "  " << col + 1 << "  |";
+			for (int row = 0; row < length; row++)
 			{
-				std::cout << "  " << matrix[row][column] << "  |";
+				std::cout << "  " << matrix[row][row] << "  |";
 			}
 			std::cout << std::endl;
-			std::cout << std::string((6 * (height + 1)), '-') << std::endl;
+			std::cout << std::string((6 * (length + 1)), '-') << std::endl;
 		}
 	}
 
@@ -153,30 +141,34 @@ namespace ADT
 	template <class T>
 	ADT::Cell<T> Matrix<T>::GetCell(const int& c, const int& r) const
 	{
-		if (c < 0 || c > height)
+		if (c < 0 || c > length)
 		{
 			throw Exceptions::ColumnOutOfBounds();
 		}
-		if (r < 0 || r > length)
+		if (r < 0 || r > height)
 		{
 			throw Exceptions::RowOutOfBounds();
 		}
-		return matrix[c][r];
+		Cell<T> returnCell{ matrix[c][r] };
+		return returnCell;
 	}
 
 	template <class T>
 	Cell<T> Matrix<T>::GetCell(const std::string& cellAddress) const
 	{
 		CellAddress test{ cellAddress };
-		if (test.GetColumn() < 0 || test.GetColumn() > height)
+		if (test.GetColumn() < 0 || test.GetColumn() > length)
 		{
 			throw Exceptions::ColumnOutOfBounds();
 		}
-		if (test.GetRow() < 0 || test.GetRow() > length)
+		if (test.GetRow() < 0 || test.GetRow() > height)
 		{
 			throw Exceptions::RowOutOfBounds();
 		}
-		return matrix[test.GetColumn()][test.GetRow()];
+		int testC = test.GetColumn();
+		int testR = test.GetRow();
+		Cell<T> returnCell = matrix[test.GetColumn()][test.GetRow()];
+		return returnCell;
 	}
 
 	template <class T>
@@ -274,7 +266,7 @@ namespace ADT
 	template <class T>
 	Matrix<T>::~Matrix()
 	{
-		for (int column = 0; column < length; column++)
+		for (int column = 0; column < height; column++)
 		{
 			delete[] matrix[column];
 		}
@@ -335,9 +327,9 @@ namespace ADT
 		}
 
 
-		for (int c = 0; c < length; c++)
+		for (int c = 0; c < height; c++)
 		{
-			for (int r = 0; r < height; r++)
+			for (int r = 0; r < length; r++)
 			{
 				Cell<T> thisCell{matrix[c][r]};
 				Cell<T> otherCell{ other.matrix[c][r] };
@@ -358,9 +350,9 @@ namespace ADT
 			return true;
 		}
 
-		for (int c = 0; c < length; c++)
+		for (int c = 0; c < height; c++)
 		{
-			for (int r = 0; r < height; r++)
+			for (int r = 0; r < length; r++)
 			{
 				Cell<T> temp1{ matrix[c][r] };
 				Cell<T> temp2 = { other.matrix[c][r] };

@@ -229,6 +229,7 @@ namespace MatrixTesting
 			//assert
 			Assert::AreEqual(expected, actual);
 		}
+
 		TEST_METHOD(ConstructorWithIntAddressAndContents_HasAddressObj)
 		{
 			//arrange
@@ -319,6 +320,7 @@ namespace MatrixTesting
 			//assert
 			Assert::AreEqual(expected, actual);
 		}
+
 		TEST_METHOD(ConstructorWithContents_HasNoName)
 		{
 			//arrange
@@ -592,20 +594,6 @@ namespace MatrixTesting
 			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(SetName_SetsCorrectly)
-		{
-			//arrange
-			Cell<int> testCell{};
-			string expected{"B4"};
-
-			//act
-			testCell.SetName("B4");
-			string actual = testCell.GetName();
-
-			//assert
-			Assert::AreEqual(expected, actual);
-		}
-
 		TEST_METHOD(SetCellAddressWithCellAddress_SetsCorrectly)
 		{
 			//arrange
@@ -674,6 +662,62 @@ namespace MatrixTesting
 			int newContents{ 42 };
 			testCell.SetContents(newContents);
 			int actual = testCell.GetContents();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(EqualityOperator_ReturnsTrueCorrectly)
+		{
+			//arrange
+			Cell<int> testCell1{ 2, 6, 42 };
+			Cell<int> testCell2{ 2, 6, 42 };
+			bool expected{ true };
+
+			//act
+			bool actual = (testCell1 == testCell2);
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(EqualityOperator_ReturnsFalseCorrectlyHeight)
+		{
+			//arrange
+			Cell<int> testCell1{ 1, 6, 42 };
+			Cell<int> testCell2{ 2, 6, 42 };
+			bool expected{ false };
+
+			//act
+			bool actual = (testCell1 == testCell2);
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(EqualityOperator_ReturnsFalseCorrectlyLength)
+		{
+			//arrange
+			Cell<int> testCell2{ 2, 6, 42 };
+			Cell<int> testCell1{ 2, 7, 42 };
+			bool expected{ false };
+
+			//act
+			bool actual = (testCell1 == testCell2);
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(EqualityOperator_ReturnsFalseCorrectlyContents)
+		{
+			//arrange
+			Cell<int> testCell1{ 2, 6, 42 };
+			Cell<int> testCell2{ 2, 6, 36 };
+			bool expected{ false };
+
+			//act
+			bool actual = (testCell1 == testCell2);
 
 			//assert
 			Assert::AreEqual(expected, actual);

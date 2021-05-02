@@ -29,7 +29,7 @@ namespace ADT
 	private:
 		int row;
 		int column;
-		std::string address;
+		std::string addressString;
 	};
 }
 

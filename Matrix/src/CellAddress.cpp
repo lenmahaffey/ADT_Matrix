@@ -1,9 +1,7 @@
 #include "CellAddress.h"
-ADT::CellAddress::CellAddress()
+ADT::CellAddress::CellAddress() :
+	row{ -1 }, column{ -1 }, addressString{ "" }
 {
-	row = -1;
-	column = -1;
-	address = "";
 }
 
 ADT::CellAddress::CellAddress(std::string a)
@@ -30,20 +28,24 @@ ADT::CellAddress::CellAddress(std::string a)
 	int r = stoi(tempR) - 1;
 	column = c;
 	row = r;
+	addressString = a;
 }
 
 ADT::CellAddress::CellAddress(int c, int r)
 {
 	row = r;
 	column = c;
-	address = GetAddressString();
+	std::string n = "";
+	n += CalculateAddressStringForInt(c);
+	n += std::to_string(r + 1);
+	addressString = n;
 }
 
 ADT::CellAddress::CellAddress(const CellAddress& other)
 {
 	row = other.row;
 	column = other.column;
-	address = other.address;
+	addressString = other.addressString;
 }
 
 int ADT::CellAddress::GetRow() const
@@ -152,8 +154,9 @@ ADT::CellAddress ADT::CellAddress::operator =(const ADT::CellAddress& otherAddre
 {
 	if (this != &otherAddress)
 	{
-		this->row = otherAddress.row;
-		this->column = otherAddress.column;
+		this->SetRow(otherAddress.row);
+		this->SetColumn(otherAddress.column);
+		this->addressString = otherAddress.GetAddressString();
 	}
 	return *this;
 }

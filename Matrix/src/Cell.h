@@ -22,10 +22,13 @@ namespace ADT
 		CellAddress GetCellAddress() const;
 		std::string GetCellAddressString() const;
 		T GetContents() const;
-		void SetName(const std::string& newName);
 		void SetAddress(const CellAddress& newAddress);
 		void SetAddress(const std::string& newAddress);
 		void SetContents(const T& newContents);
+
+		Cell<T> operator=(const Cell<T>& othercell);
+		bool operator==(const Cell<T>& othercell);
+		bool operator!=(const Cell<T>& othercell);
 
 		template <class T>
 		friend std::ostream& operator<<(std::ostream& os, const Cell<T>& a);
@@ -84,7 +87,7 @@ namespace ADT
 	template <class T>
 	std::string Cell<T>::GetName() const
 	{
-		return name;
+		return cellAddress.GetAddressString();
 	}
 	template <class T>
 	CellAddress Cell<T>::GetCellAddress() const
@@ -105,12 +108,6 @@ namespace ADT
 	}
 
 	template <class T>
-	void Cell<T>::SetName(const std::string& newName)
-	{
-		name = newName;
-	}
-
-	template <class T>
 	void Cell<T>::SetAddress(const CellAddress& newAddress)
 	{
 		cellAddress = newAddress;
@@ -127,6 +124,7 @@ namespace ADT
 	void Cell<T>::SetContents(const T& newContent)
 	{
 		contents = newContent;
+		isEmpty = false;
 	}
 
 	template<class T>
@@ -134,6 +132,41 @@ namespace ADT
 	{
 		os << a.contents;
 		return os;
+	}
+
+	template <class T>
+	Cell<T> Cell<T>::operator=(const Cell<T>& otherCell)	{
+		if (*this != otherCell)
+		{
+			this->SetAddress(otherCell.GetCellAddress());
+			this->SetContents(otherCell.GetContents());
+		}
+		return *this;
+	}
+
+	template <class T>
+	bool Cell<T>::operator==(const Cell<T>& otherCell)
+	{
+		if ((this->GetCellAddressString() == otherCell.GetCellAddressString()) &&
+			(this->GetContents() == otherCell.GetContents()))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	template <class T>
+	bool Cell<T>::operator!=(const Cell<T>& otherCell)
+	{
+		CellAddress thisCellAddress{ this->GetCellAddress() };
+		CellAddress otherCellAddress{ otherCell.GetCellAddress() };
+		if ((thisCellAddress.GetRow() != otherCellAddress.GetRow()) ||
+			(thisCellAddress.GetColumn() != otherCellAddress.GetColumn()) ||
+			(this->GetContents() != otherCell.GetContents()))
+		{
+			return true;
+		}
+		return false;
 	}
 }
 
