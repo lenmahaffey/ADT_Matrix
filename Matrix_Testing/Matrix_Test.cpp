@@ -9,48 +9,48 @@ namespace MatrixTesting
 {
 	TEST_CLASS(Matrix_Test)
 	{
-		TEST_METHOD(Constructor_HasLength)
+		TEST_METHOD(Constructor_HasColumnCount)
 		{
 			//arrange
 			Matrix<int> testMatrix{ 10, 1, 0 };
 			int expected = 10;
 
 			//act
-			int actual = testMatrix.GetLength();
+			int actual = testMatrix.GetColumnCount();
 
 			//assert
 			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(Constructor_HasHeight)
+		TEST_METHOD(Constructor_HasRowCount)
 		{
 			//arrange
 			Matrix<int> testMatrix{ 1, 10, 0 };
 			int expected = 10;
 
 			//act
-			int actual = testMatrix.GetHeight();
+			int actual = testMatrix.GetRowCount();
 
 			//assert
 			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(Constructor_ExpectHeightException)
+		TEST_METHOD(Constructor_ExpectColumnException)
 		{
 			//arrange
 			auto func = [] { Matrix<int> testMatrix{ 701, 10, 0 }; };
 
 			//assert
-			Assert::ExpectException<Exceptions::ColumnOutOfBounds>(func);
+			Assert::ExpectException<std::ColumnOutOfBounds>(func);
 		}
 
-		TEST_METHOD(Constructor_ExpectLengthException)
+		TEST_METHOD(Constructor_ExpectRowException)
 		{
 			//arrange
 			auto func = [] { Matrix<int> testMatrix{ 1, 701, 0 }; };
 
 			//assert
-			Assert::ExpectException<Exceptions::RowOutOfBounds>(func);
+			Assert::ExpectException<std::RowOutOfBounds>(func);
 		}
 
 		TEST_METHOD(Constructor_Constuct2x3Correctly_HasTopLeftCorner)
@@ -160,27 +160,27 @@ namespace MatrixTesting
 			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(CopyConstructor_HasLength)
+		TEST_METHOD(CopyConstructor_HasColumnCount)
 		{
 			//arrange
 			Matrix<int> testMatrix{ Matrix<int>{ 10, 1, 0 } };
 			int expected = 10;
 
 			//act
-			int actual = testMatrix.GetLength();
+			int actual = testMatrix.GetColumnCount();
 
 			//assert
 			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(CopyConstructor_HasHeight)
+		TEST_METHOD(CopyConstructor_HasRowCount)
 		{
 			//arrange
 			Matrix<int> testMatrix{ Matrix<int>{ 1, 10, 0 } };
 			int expected = 10;
 
 			//act
-			int actual = testMatrix.GetHeight();
+			int actual = testMatrix.GetRowCount();
 
 			//assert
 			Assert::AreEqual(expected, actual);
@@ -192,7 +192,7 @@ namespace MatrixTesting
 			auto func = [] { Matrix<int> testMatrix{ Matrix<int>{708, 10, 0} }; };
 
 			//assert
-			Assert::ExpectException<Exceptions::ColumnOutOfBounds>(func);
+			Assert::ExpectException<std::ColumnOutOfBounds>(func);
 		}
 
 		TEST_METHOD(CopyConstructor_ExpectLengthException)
@@ -201,7 +201,7 @@ namespace MatrixTesting
 			auto func = [] { Matrix<int> testMatrix = Matrix<int>{ 1, 701, 0 }; };
 
 			//assert
-			Assert::ExpectException<Exceptions::RowOutOfBounds>(func);
+			Assert::ExpectException<std::RowOutOfBounds>(func);
 		}
 
 		TEST_METHOD(GetCellWithAddressInts_ReturnsACell)
@@ -229,7 +229,6 @@ namespace MatrixTesting
 			//assert
 			Assert::AreEqual(expected.GetCellAddressString(), actual.GetCellAddressString());
 		}
-
 
 		TEST_METHOD(GetCellWithAddressString_ReturnsACell)
 		{

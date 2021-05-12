@@ -21,11 +21,11 @@ ADT::CellAddress::CellAddress(std::string a)
 		}
 		else
 		{
-			throw ADT::Exceptions::BadAddressString();
+			throw std::BadAddressString();
 		}
 	}
 	int c = CellAddress::CalculateIntForAddressString(tempC);
-	int r = stoi(tempR) -1 ;
+	int r = stoi(tempR) - 1;
 	column = c;
 	row = r;
 	addressString = a;
@@ -43,9 +43,12 @@ ADT::CellAddress::CellAddress(const int& c, const int& r)
 
 ADT::CellAddress::CellAddress(const CellAddress& other)
 {
-	row = other.row;
-	column = other.column;
-	addressString = other.addressString;
+	if (*this != other)
+	{
+		row = other.row;
+		column = other.column;
+		addressString = other.addressString;
+	}
 }
 
 int ADT::CellAddress::GetRow() const
@@ -177,7 +180,7 @@ ADT::CellAddress ADT::CellAddress::operator =(const std::string& a)
 	}
 	else
 	{
-		throw ADT::Exceptions::BadAddressString();
+		throw std::BadAddressString();
 	}
 	return *this;
 }

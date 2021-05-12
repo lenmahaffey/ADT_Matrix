@@ -2,10 +2,10 @@
 #include "../Matrix/src/CellAddress.h"
 #include "../Matrix/src/CellAddress.cpp"
 #include "../Matrix/src/MatrixExceptions.h"
+
 using namespace std;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace ADT;
-using namespace ADT::Exceptions;
 namespace MatrixTesting
 {
 	TEST_CLASS(CellAddress_Test)
