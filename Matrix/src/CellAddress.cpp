@@ -89,23 +89,32 @@ void ADT::CellAddress::SetColumn(const int& newColumn)
 int ADT::CellAddress::CalculateIntForAddressString(const std::string& v)
 {
 	std::string value{ v };
-	int total = 0;
-	total += (value[value.length() - 1]) - 65;
-	if (value.length() <= 2)
+	int total{ 0 };
+	int subTotal{ 0 };
+	int loopCount{ 0 };
+	if (value.length() == 1)
 	{
-		int subTotal{};
-		if (value.length() > 1)
+		total += (v[0] - 'A');
+		return total;
+	}
+	else if (value.length() == 2)
+	{
+		total += (v[0] - 'A');
+		subTotal += ((total + 1) * 26);
+		for (int i = 1; i < value.length(); i++)
 		{
-			subTotal = (value[0] + 1) - 65;
-			subTotal *= 26;
+			subTotal += (v[i] - 'A') + 1;
+			total = subTotal;
+			total -= 1;
 		}
-		for (int i = 1; i < (int)value.length() - 1; i++)
+	}
+	else if (value.length() == 3)
+	{
+		total += (v[0] - 'A');
+		for (int i = 1; i < value.length(); i++)
 		{
-			int temp = 1;
-			temp = (value[i] + 1) - 65;
-			temp *= 26;
-			temp *= subTotal;
-			subTotal += temp;
+			subTotal += (v[i] - 'A');
+			total += pow(26, i);
 		}
 		total += subTotal;
 	}

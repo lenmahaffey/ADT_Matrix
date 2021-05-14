@@ -318,7 +318,7 @@ namespace MatrixTesting
 			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(CalculateAddressValueFromInt_MultipleValues)
+		TEST_METHOD(CalculateAddressValueFromInt_SingleChar)
 		{
 			CellAddress test;
 			string expected;
@@ -335,6 +335,13 @@ namespace MatrixTesting
 			expected = "Z";
 			actual = test.CalculateAddressStringForInt(25);
 			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(CalculateAddressValueFromInt_DoubleChar)
+		{
+			CellAddress test;
+			string expected;
+			string actual;
 
 			expected = "AA";
 			actual = test.CalculateAddressStringForInt(26);
@@ -365,7 +372,30 @@ namespace MatrixTesting
 			Assert::AreEqual(expected, actual);
 		}
 
-		TEST_METHOD(CalculateAddressValueFromString_MultipleValues)
+		TEST_METHOD(CalculateAddressValueFromInt_TripleChar)
+		{
+			CellAddress test;
+			string expected;
+			string actual;
+
+			expected = "AAA";
+			actual = test.CalculateAddressStringForInt(703);
+			Assert::AreEqual(expected, actual);
+
+			expected = "AZZ";
+			actual = test.CalculateAddressStringForInt(1378);
+			Assert::AreEqual(expected, actual);
+
+			expected = "BBB";
+			actual = test.CalculateAddressStringForInt(1405);
+			Assert::AreEqual(expected, actual);
+
+			expected = "XFC";
+			actual = test.CalculateAddressStringForInt(16383);
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(CalculateAddressValueFromString_SingleChar)
 		{
 			CellAddress test;
 			int expected;
@@ -386,6 +416,12 @@ namespace MatrixTesting
 			expected = 25;
 			actual = test.CalculateIntForAddressString("Z");
 			Assert::AreEqual(expected, actual);
+		}
+		TEST_METHOD(CalculateAddressValueFromString_DoubleChar)
+		{
+			CellAddress test;
+			int expected;
+			int actual;
 
 			expected = 26;
 			actual = test.CalculateIntForAddressString("AA");
@@ -405,6 +441,33 @@ namespace MatrixTesting
 
 			expected = 701;
 			actual = test.CalculateIntForAddressString("ZZ");
+			Assert::AreEqual(expected, actual);
+		}
+
+		TEST_METHOD(CalculateAddressValueFromString_TripleChar)
+		{
+			CellAddress test;
+			int expected;
+			int actual;
+
+			expected = 702;
+			actual = test.CalculateIntForAddressString("AAA");
+			Assert::AreEqual(expected, actual);
+
+			expected = 1377;
+			actual = test.CalculateIntForAddressString("AZZ");
+			Assert::AreEqual(expected, actual);
+
+			expected = 1405;
+			actual = test.CalculateIntForAddressString("BBB");
+			Assert::AreEqual(expected, actual);
+
+			expected = 103;
+			actual = test.CalculateIntForAddressString("CZ");
+			Assert::AreEqual(expected, actual);
+
+			expected = 16383;
+			actual = test.CalculateIntForAddressString("XFD");
 			Assert::AreEqual(expected, actual);
 		}
 

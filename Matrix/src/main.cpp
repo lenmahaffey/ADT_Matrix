@@ -15,6 +15,8 @@ using namespace ADT;
 
 int main()
 {
+	int test{ CellAddress::CalculateIntForAddressString("AA") };
+
 	Matrix<char> game = Matrix<char>(10 , 5, 'E');
 	game.Display();
 
