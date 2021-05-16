@@ -4,7 +4,7 @@ ADT::CellAddress::CellAddress() :
 {
 }
 
-ADT::CellAddress::CellAddress(std::string a)
+ADT::CellAddress::CellAddress(const std::string& a)
 {
 	std::string tempC{};
 	std::string tempR{};
@@ -92,6 +92,7 @@ int ADT::CellAddress::CalculateIntForAddressString(const std::string& v)
 	int total{ 0 };
 	int subTotal{ 0 };
 	int loopCount{ 0 };
+
 	if (value.length() == 1)
 	{
 		total += (v[0] - 'A');
@@ -113,8 +114,7 @@ int ADT::CellAddress::CalculateIntForAddressString(const std::string& v)
 		total += (v[0] - 'A');
 		for (int i = 1; i < value.length(); i++)
 		{
-			subTotal += (v[i] - 'A');
-			total += pow(26, i);
+			subTotal += ((v[i] - 'A') + 1) * 26;
 		}
 		total += subTotal;
 	}

@@ -65,14 +65,14 @@ namespace ADT
 	Matrix<T>::Matrix(int columns, int rows, T defaultValue) :
 		columnCount(columns), rowCount(rows)
 	{
-		if (rows <= 0 || rows > 700)
-		{
-			throw std::RowOutOfBounds("Class: Matrix<T> is limited to 700 rows");
-		}
-
 		if (columns <= 0 || columns > 700)
 		{
 			throw std::ColumnOutOfBounds("Class: Matrix<T> is limited to 700 columns");
+		}
+
+		if (rows <= 0 || rows > 700)
+		{
+			throw std::RowOutOfBounds("Class: Matrix<T> is limited to 700 rows");
 		}
 
 		matrix = new Cell<T>*[columns];
@@ -89,20 +89,19 @@ namespace ADT
 	}
 
 	template <class T>
-	Matrix<T>::Matrix(const Matrix<T>& other) :
-		rowCount{ other.GetRowCount() }, columnCount{ other.GetColumnCount() }
+	Matrix<T>::Matrix(const Matrix<T>& other)
 	{
 		if (*this != other)
 		{
-			matrix = new Cell<T>*[rowCount];
-			for (int c = 0; c <= rowCount - 1; c++)
+			columnCount = other.GetColumnCount();
+			rowCount = other.GetRowCount();
+			matrix = new Cell<T>*[columnCount];
+			for (int c = 0; c < columnCount; c++)
 			{
-				matrix[c] = new Cell<T>[rowCount] { T{} };
-				for (int r = 0; r <= columnCount - 1; r++)
+				matrix[c] = new Cell<T>[rowCount];
+				for (int r = 0; r < rowCount; r++)
 				{
-					Cell<T> temp = other.GetCell(c, r);
-					Cell<T> thisCell = matrix[c][r];
-					thisCell = temp;
+					matrix[c][r] = other.GetCell(c,r);
 				}
 			}
 		}
@@ -111,24 +110,27 @@ namespace ADT
 	template <class T>
 	void Matrix<T>::Display()
 	{
-		std::cout << std::string((6 * (rowCount + 1)), '-') << std::endl;
+		int columns{ columnCount };
+		columns += 1;
+		columns *= 6;
+		std::cout << std::string(columns, '-') << std::endl;
 		std::cout << "   ";
-		for (int i = 0; i < rowCount; i++)
+		for (int i = 0; i < columnCount; i++)
 		{
 			std::cout << "  |  " << (char)(i + 65);
 		}
 		std::cout << "  |" << std::endl;
 
-		std::cout << std::string((6 * (rowCount + 1)), '-') << std::endl;
-		for (int r = 0; r < columnCount; r++)
+		std::cout << std::string(columns, '-') << std::endl;
+		for (int r = 0; r < rowCount; r++)
 		{
 			std::cout << "  " << r + 1 << "  |";
-			for (int c = 0; c < rowCount; c++)
+			for (int c = 0; c < columnCount; c++)
 			{
-				std::cout << "  " << matrix[c][r] << "  |";
+				std::cout << "  " << GetCell(c, r) << "  |";
 			}
 			std::cout << std::endl;
-			std::cout << std::string((6 * (rowCount + 1)), '-') << std::endl;
+			std::cout << std::string(columns, '-') << std::endl;
 		}
 	}
 
@@ -147,14 +149,16 @@ namespace ADT
 	template <class T>
 	Cell<T> Matrix<T>::GetCell(const int& c, const int& r) const
 	{
-		if (c < 0 || c > rowCount)
+		if (c < 0 || c > columnCount)
 		{
-			throw std::ColumnOutOfBounds("Column Error: The max column is " + std::to_string(columnCount));
+			throw std::ColumnOutOfBounds("Column Error: The max row is " + std::to_string(columnCount));
 		}
-		if (r < 0 || r > columnCount)
+
+		if (r < 0 || r > rowCount)
 		{
-			throw std::RowOutOfBounds("Row Error: The max row is " + std::to_string(rowCount));
+			throw std::RowOutOfBounds("Row Error: The max column is " + std::to_string(rowCount));
 		}
+
 		Cell<T> returnCell{ matrix[c][r] };
 		return returnCell;
 	}
@@ -165,7 +169,7 @@ namespace ADT
 		CellAddress test{ cellAddress };
 		if (test.GetColumn() < 0 || (test.GetColumn() + 1) > columnCount)
 		{
-			throw std::ColumnOutOfBounds("Column Error: The max column is " + ADT::CellAddress::CalculateAddressStringForInt(columnCount - 1));
+			throw std::ColumnOutOfBounds("Column Error: The max column is " + std::to_string(columnCount));
 		}
 		if (test.GetRow() < 0 || (test.GetRow() + 1) > rowCount)
 		{
@@ -190,7 +194,8 @@ namespace ADT
 			throw std::RowOutOfBounds("Row Error: The max row is " + std::to_string(rowCount));
 		}
 		Cell<T> c = matrix[test.GetColumn()][test.GetRow()];
-		return c.GetContents();
+		T contents = c.GetContents();
+		return contents;
 	}
 
 	template <class T>
@@ -206,22 +211,30 @@ namespace ADT
 		}
 
 		Cell<T> c = matrix[c][r];
-		return c.GetContents();
+		T contents = c.GetContents();
+		return contents;
 	}
 
 	template <class T>
 	void Matrix<T>::SetCell(const std::string& cellAddress, const Cell<T>& newCell)
 	{
-		CellAddress test{ cellAddress };
-		if (test.GetColumn() < 0 || test.GetColumn() > columnCount)
+		try
 		{
-			throw std::ColumnOutOfBounds("Column Error: The max column is " + std::to_string(columnCount));
+			CellAddress test{ cellAddress };
+			if (test.GetColumn() < 0 || test.GetColumn() > columnCount)
+			{
+				throw std::ColumnOutOfBounds("Column Error: The max column is " + std::to_string(columnCount));
+			}
+			if (test.GetRow() < 0 || test.GetRow() > rowCount)
+			{
+				throw std::RowOutOfBounds("Row Error: The max row is " + std::to_string(rowCount));
+			}
+			matrix[test.GetColumn()][test.GetRow()] = newCell;
 		}
-		if (test.GetRow() < 0 || test.GetRow() > rowCount)
+		catch (std::exception e)
 		{
-			throw std::RowOutOfBounds("Row Error: The max row is " + std::to_string(rowCount));
+			throw;
 		}
-		matrix[test.GetColumn()][test.GetRow()] = newCell;
 	}
 
 	template <class T>
@@ -269,7 +282,6 @@ namespace ADT
 		ADT::Cell<T>* current = &(matrix[c][r]);
 		current->SetEmpty(b);
 	}
-
 
 	template <class T>
 	void Matrix<T>::SetCellContents(const std::string& cellAddress, const T& newContents)
@@ -334,25 +346,16 @@ namespace ADT
 	{
 		if (*this != other)
 		{
-			for (int row = 0; row < rowCount; row++)
-			{
-				delete[] matrix[row];
-			}
-			delete[] matrix;
-
-			int rows = other.GetRowCount();
-			int cols = other.GetColumnCount();
-			this->rowCount = rows;
-			this->columnCount = cols;
-			this->matrix = new Cell<T>*[rows];
+			deleteMatrix();
+			this->rowCount = other.GetRowCount();
+			this->columnCount = other.GetColumnCount();
+			matrix = new Cell<T>*[columnCount];
 			for (int c = 0; c < columnCount; c++)
 			{
-				this->matrix[c] = new Cell<T>[c] {Cell<T>{}};
+				matrix[c] = new Cell<T>[rowCount];
 				for (int r = 0; r < rowCount; r++)
 				{
-					Cell<T> otherCell{ other.GetCell(c, r) };
-					Cell<T> current{ otherCell };
-					this->matrix[c][r] = current;
+					matrix[c][r] = other.GetCell(c,r);
 				}
 			}
 		}
@@ -372,16 +375,22 @@ namespace ADT
 			return false;
 		}
 
-
 		for (int r = 0; r < rowCount; r++)
 		{
 			for (int c = 0; c < columnCount; c++)
 			{
-				Cell<T> thisCell{ matrix[c][r] };
-				Cell<T> otherCell{ other.matrix[c][r] };
-				if (thisCell.GetContents() != otherCell.GetContents())
+				try
 				{
-					return false;
+					Cell<T> thisCell{ matrix[c][r] };
+					Cell<T> otherCell{ other.matrix[c][r] };
+					if (thisCell.GetContents() != otherCell.GetContents())
+					{
+						return false;
+					}
+				}
+				catch (const std::exception& e)
+				{
+					throw;
 				}
 			}
 		}
@@ -396,9 +405,9 @@ namespace ADT
 			return true;
 		}
 
-		for (int r = 0; r < columnCount; r++)
+		for (int c = 0; c < columnCount; c++)
 		{
-			for (int c = 0; c < rowCount; c++)
+			for (int r = 0; r < rowCount; r++)
 			{
 				try
 				{
@@ -409,19 +418,16 @@ namespace ADT
 						return true;
 					}
 				}
-				catch (const std::MatrixException)
+				catch (const std::exception& e)
 				{
-
-				}
-				catch (const std::exception e)
-				{
-
+					throw;
 				}
 
 			}
 		}
 		return false;
 	}
+
 	template <class T>
 	void Matrix<T>::deleteMatrix()
 	{

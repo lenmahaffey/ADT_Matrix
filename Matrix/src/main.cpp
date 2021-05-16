@@ -18,6 +18,7 @@ int main()
 	int test{ CellAddress::CalculateIntForAddressString("AA") };
 
 	Matrix<char> game = Matrix<char>(10 , 5, 'E');
+	Cell<char> testCell = game.GetCell("I5");
 	game.Display();
 
 	Matrix<char> game1 = Matrix<char>(5, 10, 'E');

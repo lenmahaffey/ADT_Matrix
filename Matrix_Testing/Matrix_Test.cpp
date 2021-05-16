@@ -558,5 +558,18 @@ namespace MatrixTesting
 			//assert
 			Assert::AreEqual(expected, actual);
 		}
+
+		TEST_METHOD(AssignemntOperator_AssignsCorrectly)
+		{
+			//arrange
+			Matrix<int> testMatrix1{ 3, 2, 0 };
+			Matrix<int> testMatrix2{};
+
+			//act
+			testMatrix2 = testMatrix1;
+
+			//assert
+			Assert::IsTrue(testMatrix2 == testMatrix1);
+		}
 	};
 }
