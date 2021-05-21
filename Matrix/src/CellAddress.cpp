@@ -15,6 +15,10 @@ ADT::CellAddress::CellAddress(const std::string& a)
 		{
 			tempC.push_back(a[i]);
 		}
+		else if (a[i] >= 'a' && a[i] <= 'z')
+		{
+			tempC.push_back(a[i] + 32);
+		}
 		else if (a[i] >= '0' && a[i] <= '9')
 		{
 			tempR.push_back(a[i]);
@@ -89,34 +93,19 @@ void ADT::CellAddress::SetColumn(const int& newColumn)
 int ADT::CellAddress::CalculateIntForAddressString(const std::string& v)
 {
 	std::string value{ v };
+	std::string reveresedString{};
 	int total{ 0 };
-	int subTotal{ 0 };
-	int loopCount{ 0 };
 
-	if (value.length() == 1)
+	for (int i = 0; i < value.length(); i++)
 	{
-		total += (v[0] - 'A');
-		return total;
+		reveresedString.insert(0, 1, value[i]);
 	}
-	else if (value.length() == 2)
+
+	total += (reveresedString[0] - 'A');
+
+	for (int i = 1; i < reveresedString.length(); i++)
 	{
-		total += (v[0] - 'A');
-		subTotal += ((total + 1) * 26);
-		for (int i = 1; i < value.length(); i++)
-		{
-			subTotal += (v[i] - 'A') + 1;
-			total = subTotal;
-			total -= 1;
-		}
-	}
-	else if (value.length() == 3)
-	{
-		total += (v[0] - 'A');
-		for (int i = 1; i < value.length(); i++)
-		{
-			subTotal += ((v[i] - 'A') + 1) * 26;
-		}
-		total += subTotal;
+		total += ((pow(26, i) * ((reveresedString[i] - 'A') + 1)));
 	}
 	return total;
 }

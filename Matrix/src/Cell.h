@@ -87,6 +87,19 @@ namespace ADT
 		contents{ o.contents }, name{ o.name }, cellAddress{ o.cellAddress }, isEmpty{ o.isEmpty }
 	{
 	}
+
+	template <class T>
+	Cell<T>::Cell(const CellAddress& cellAddress) :
+		contents{ T{} }, name{ cellAddress.GetAddressString() }, cellAddress{ cellAddress }, isEmpty{ true }
+	{
+	}
+
+	template <class T>
+	Cell<T>::Cell(const CellAddress& cellAddress, const T& contents) :
+		contents{ contents }, name{ cellAddress.GetAddressString() }, cellAddress{ cellAddress }, isEmpty{ false }
+	{
+	}
+
 	template <class T>
 	bool Cell<T>::IsEmpty() const
 	{

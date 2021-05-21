@@ -63,6 +63,19 @@ namespace MatrixTesting
 			Assert::AreEqual(expected, actual);
 		}
 
+		TEST_METHOD(ConstructorWithAddressString_ExpectException)
+		{
+			//arrange
+			CellAddress test{ "A1" };
+			int expected{ 0 };
+
+			//act
+			int actual = test.GetRow();
+
+			//assert
+			Assert::AreEqual(expected, actual);
+		}
+
 		TEST_METHOD(ConstructorWithAddressString_HasCorrectColumn)
 		{
 
