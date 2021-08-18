@@ -1,5 +1,5 @@
 #include "CppUnitTest.h"
-#include "../Matrix/src/Cell.h"
+#include "../ADT_Matrix/src/Cell.h"
 
 using namespace std;
 using namespace ADT;

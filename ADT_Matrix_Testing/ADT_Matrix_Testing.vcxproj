@@ -166,7 +166,7 @@
     <ClCompile Include="Matrix_Test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Matrix\Matrix.vcxproj">
+    <ProjectReference Include="..\ADT_Matrix\ADT_Matrix.vcxproj">
       <Project>{34538d4c-c35f-446a-90c0-24ba29f3a1b1}</Project>
     </ProjectReference>
   </ItemGroup>

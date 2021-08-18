@@ -1,5 +1,5 @@
 #include "CppUnitTest.h"
-#include "../Matrix/src/matrix.h"
+#include "../ADT_Matrix/src/matrix.h"
 #include <cassert>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

@@ -1,7 +1,7 @@
 #include "CppUnitTest.h"
-#include "../Matrix/src/CellAddress.h"
-#include "../Matrix/src/CellAddress.cpp"
-#include "../Matrix/src/MatrixExceptions.h"
+#include "../ADT_Matrix/src/CellAddress.h"
+#include "../ADT_Matrix/src/CellAddress.cpp"
+#include "../ADT_Matrix/src/MatrixExceptions.h"
 
 using namespace std;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
